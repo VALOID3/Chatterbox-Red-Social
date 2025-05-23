@@ -1,0 +1,360 @@
+/* IMPORT FONT */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* COLOR VARIABLES */
+:root {
+  --primary-color: #7a41b0;
+  --secondary-color: #535354;
+  --background-color: #1d1d1d;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --white-color: #FFF;
+  --black-color: #000;
+  --input-border-color: #474747;
+  --transition-3s: 0.3s;
+}
+
+/* GLOBAL STYLES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+
+  color: var(--white-color);
+  padding-top: 150px;
+  padding-bottom: 80px;
+}
+
+/* NAVBAR */
+.navbar-frame {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  z-index: 1000;
+  background-color: var(--white-color);
+  border: none;
+}
+
+/* CONTENEDOR POSTS */
+.post-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 150px;
+    padding: 20px;
+}
+
+/* POST */
+.post {
+    display: flex;
+    width: 60%;
+    background-color: var(--white-color);
+    border-radius: 15px;
+    overflow: hidden;
+    transition: transform 0.2s ease-in-out;
+}
+
+.post:hover {
+    transform: scale(1.02);
+}
+
+/* IMAGEN POST*/
+.post-image {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.post-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* INFO POST*/
+.post-info {
+    width: 50%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.post-owner {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.owner-picture {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary-color);
+}
+
+.owner-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--black-color);
+}
+
+.post-description {
+    font-size: 16px;
+    color: var(--secondary-color);
+    margin: 15px 0;
+    line-height: 1.4;
+}
+
+/* BOTONES */
+.post-buttons {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-start;
+}
+
+.like-btn, .download-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px; 
+    padding: 15px 30px; 
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: var(--transition-3s);
+    font-size: 18px;
+  }
+  
+  .like-btn:hover, .download-btn:hover {
+    background-color: #6a359c; 
+  }
+
+/* RESPONSIVE */
+@media only screen and (max-width: 768px) {
+    .post {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .post-image, .post-info {
+        width: 100%;
+    }
+
+    .post-info {
+        padding: 15px;
+    }
+
+    .post-buttons {
+        justify-content: center;
+    }
+}
+
+/* BOTON CREAR POST */
+
+.create-post-btn {
+    position: fixed;
+    top: 120px; 
+    right: 60px; 
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50px; 
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 15px 20px; 
+    box-shadow: 0 4px 8px var(--shadow-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.create-post-btn i {
+    font-size: 22px; 
+}
+
+.create-text {
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.create-post-btn:hover {
+    background-color: #6a359c;
+    transform: scale(1.05);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* //////////////////////////// */
+
+/* CONTENEDOR FORMULARIO DE CREAR POST */
+.create-post-container {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px; 
+    background-color: var(--white-color);
+    border-radius: 15px;
+    padding: 25px;
+    box-shadow: 0 8px 15px var(--shadow-color);
+    z-index: 1000;
+}
+
+/* HEADER DEL FORMULARIO */
+.form-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.title-login {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+/* CONTENIDO DEL FORMULARIO */
+.post-content {
+    display: flex;
+    gap: 20px;
+}
+
+/* IMAGEN A LA IZQUIERDA */
+.image-preview-container {
+    width: 100%;
+    height: 400px;
+    background-color: #d0c0df; 
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+.image-preview-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; 
+    display: none; 
+}
+.upload-placeholder {
+    text-align: center;
+    color: var(--secondary-color);
+    font-size: 16px;
+}
+
+.upload-placeholder i {
+    font-size: 40px;
+    margin-bottom: 10px;
+}
+
+
+.post-inputs {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-box-big {
+    position: relative;
+    width: 100%;
+}
+
+.input-box-big textarea {
+    width: 100%;
+    height: 250px;
+    font-size: 16px;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid var(--input-border-color);
+    resize: none;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.input-box-big textarea:focus {
+    border-color: var(--primary-color);
+}
+
+.btn-change-photo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: var(--white-color);
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-change-photo:hover {
+    background-color: #6a359c;
+}
+
+.container-navbuttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    z-index: 999;/
+}
+
+@media only screen and (max-width: 768px) {
+    .create-post-container {
+        width: 90%;
+    }
+
+    .post-content {
+        flex-direction: column;
+    }
+
+    .image-preview-container, .post-inputs {
+        width: 100%;
+    }
+
+    .image-preview-container {
+        height: 200px;
+    }
+}
+
+
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background-color: var(--white-color);
+  color: var(--black-color);
+  margin-top: 20px;
+}

@@ -1,0 +1,228 @@
+/* IMPORT FONT */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+/* COLOR VARIABLES */
+:root {
+  --primary-color: #7a41b0;
+  --secondary-color: #535354;
+  --background-color: #1d1d1d;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --white-color: #FFF;
+  --black-color: #000;
+  --input-border-color: #474747;
+  --transition-3s: 0.3s;
+}
+
+/* GLOBAL STYLES */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+
+  color: var(--white-color);
+  padding-top: 80px;
+
+}
+
+/* NAVBAR */
+.navbar-frame {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 130%;
+  height: 80px;
+  z-index: 1000;
+  background-color: var(--white-color);
+  border: none;
+}
+
+/* NAVBAR BLANCO */
+.vertical-navbar-white {
+  background-color: var(--white-color);
+  color: var(--black-color);
+  width: 270px;
+  height: calc(100vh - 80px);
+  position: fixed;
+  top: 80px;
+  left: 0;
+  box-shadow: 2px 0 5px var(--shadow-color);
+  padding: 15px;
+  overflow-y: auto;
+}
+
+.search-form .input-group {
+  margin-bottom: 20px;
+}
+
+.search-form .form-control {
+  border: 1px solid var(--input-border-color);
+  border-radius: 5px;
+  padding: 8px;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+.search-form .btn {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  border: none;
+  border-radius: 5px;
+  padding: 9px 12px;
+  cursor: pointer;
+  transition: background-color var(--transition-3s);
+}
+
+.search-form .btn:hover {
+  background-color: #6a359c;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  color: var(--black-color);
+  text-decoration: none;
+  transition: background-color var(--transition-3s), color var(--transition-3s);
+}
+
+.nav-link.active,
+.nav-link:hover {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+/* Eliminar puntos de la lista */
+.vertical-navbar-white ul {
+  list-style-type: none; 
+
+}
+
+.chat-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+/* CONTENEDOR DE CHAT */
+.main-content {
+  margin-left: 270px; /* Ajuste para el navbar blanco */
+  padding: 20px;
+}
+
+.chat-header {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  padding: 15px;
+  border-radius: 10px 10px 0 0;
+  display: flex;
+  align-items: center;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-name {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.chat-container {
+  background-color: var(--background-color);
+  padding: 15px;
+  border-radius: 0 0 10px 10px;
+  height: 450px;
+  overflow-y: auto;
+  border: 1px solid var(--input-border-color);
+}
+
+.chat-message {
+  display: flex;
+  margin-bottom: 15px;
+}
+
+.chat-message.incoming {
+  justify-content: flex-start;
+}
+
+.chat-message.outgoing {
+  justify-content: flex-end;
+}
+
+.message-content {
+  max-width: 70%;
+  padding: 10px;
+  border-radius: 10px;
+  position: relative;
+}
+
+.chat-message.incoming .message-content {
+  background-color: var(--secondary-color);
+  color: var(--white-color);
+}
+
+.chat-message.outgoing .message-content {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}
+
+.message-time {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--white-color);
+  opacity: 0.8;
+  margin-top: 5px;
+}
+
+.chat-input {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.chat-input .form-control {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid var(--input-border-color);
+  border-radius: 5px;
+  background-color: var(--background-color);
+  color: var(--white-color);
+}
+
+.chat-input .btn {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color var(--transition-3s);
+}
+
+.chat-input .btn:hover {
+  background-color: #6a359c;
+}
+
+/* FOOTER */
+.footer {
+  text-align: center;
+  padding: 20px;
+  background-color: var(--white-color);
+  color: var(--black-color);
+  margin-top: 20px;
+}

@@ -1,0 +1,299 @@
+/* IMPORT FONT */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+.navbar-frame {
+    position: fixed; /* ES PARA PEGAR EL NAVBAR ARRIBA */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px; 
+    z-index: 1000; 
+    background-color: white; 
+    border: none;
+}
+
+/* COLOR VARIABLES */
+:root {
+    --primary-color: #7a41b0;
+    --secondary-color: #535354;
+    --background-color: #1d1d1d;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --white-color: #FFF;
+    --black-color: #000;
+    --input-border-color: #474747;
+    --transition-3s: 0.3s;
+}
+
+
+/* GLOBAL STYLES */
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* REUSABLE ELEMENTS */
+a{
+    text-decoration: none;
+    color: var(--black-color);
+    transition: var(--transition-3s);
+}
+a:hover{
+    text-decoration: underline;
+}
+
+body {
+    
+    overflow-y: auto; 
+    display: block; 
+    background-color: var(--background-color);
+    margin: 0;
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+
+/*BARRA DE BÚSQUEDA */
+.search-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    width: 50%;
+    padding: 10px;
+    background: var(--white-color);
+    border-radius: 30px;
+
+}
+
+.search-bar input {
+    width: 100%;
+    padding: 10px 15px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    border-radius: 30px;
+}
+
+.search-btn {
+    background: var(--primary-color);
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 8%;
+}
+
+.search-btn svg {
+    fill: white;
+    width: 20px;
+    height: 20px;
+}
+
+.search-btn:hover {
+    background: #5a2b8a;
+}
+
+.search-btn i {
+    font-size: 24px; /* Ajusta el tamaño del ícono */
+    color: #FFF;
+}
+
+
+/* CONTENEDOR DE TARJETAS */
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; 
+    justify-content: center; 
+    padding: 20px;
+    width: 90%;
+    margin: auto;
+    flex-direction: row; 
+    align-items: flex-start;
+}
+
+/* TARJETAS */
+.Card-individual {
+    width: 250px;
+    height: 340px;
+    background-color: var(--white-color);
+    border-radius: 15px;
+    padding: 10px 32px 32px;
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 8px 15px var(--shadow-color);
+    transition: transform 0.3s ease;
+    text-align: center;
+}
+
+/* SEPARACIÓN DE 5 TARJETAS */
+.Card-individual:nth-child(5n+1) {
+    clear: left;
+}
+
+.Card-individual:hover {
+    transform: scale(1.05);
+}
+
+
+
+/* INPUT FIELDS */
+.input-box{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+}
+
+.input-box-big {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    margin: 20px 0;
+    width: 100%; 
+}
+
+.input-box-big input, 
+.input-box-big textarea {
+    width: 100%;
+    height: 150px; 
+    font-size: 18px; 
+    padding: 0px;
+    border-radius: 20px; 
+    border: 1px solid var(--input-border-color);
+}
+
+.input-box-big label {
+
+    top: 20px; 
+    font-size: 16px; 
+    font-weight: 500;
+    color: var(--secondary-color);
+    margin-bottom: 5px;
+}
+
+/*CAMBIA EL TAMAÑO DE LOS INPUTS*/
+.input-field{
+    width: 100%;
+    height: 35px; 
+    font-size: 16px;
+    background: transparent;
+    color: var(--black-color);
+    padding: 0 20px;
+    border: 1px solid var(--input-border-color);
+    border-radius: 30px;
+    outline: none;
+    transition: var(--transition-3s);
+}
+.input-field:focus{
+    border: 1px solid var(--primary-color);
+}
+.label{
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+    color: var(--secondary-color);
+    transition: 0.2s;
+    cursor: text;
+}
+.input-field:focus ~ .label,
+.input-field:valid ~ .label{
+    top: 0;
+    font-size: 14px;
+    background-color: var(--white-color);
+    color: var(--primary-color);
+    padding: 0 10px;
+}
+.input-field:valid ~ .label{
+    color: var(--secondary-color);
+}
+.icon{
+    position: absolute;
+    top: 50%;
+    right: 25px;
+    transform: translateY(-50%);
+    font-size: 20px;
+    color: var(--secondary-color);
+}
+
+.col-1{
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+
+.profile-picture-container {
+    padding-top: 25%;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    width: 100%; 
+}
+
+
+.profile-picture {
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 5px solid var(--primary-color); 
+    transition: border-width 0.1s ease; /* Añade una transición suave */
+}
+
+.profile-picture:hover {
+    border-width: 7px; /* Aumenta el ancho del borde al pasar el mouse */
+}
+
+
+
+/* ESTILOS PARA CADA ELEMENTO */
+.profile-username {
+    font-size: 24px; 
+    font-weight: bold;
+    color: var(--black-color);
+    text-align: center; 
+}
+
+.profile-fullname {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--primary-color);
+    text-align: center; 
+}
+
+/* ////////////////////////////////////////////////////// */
+
+/* Asegúrate que tienes esto en tu busqueda.css */
+.profile-picture-container {
+    width: 100%;
+    height: 170px; /* Altura fija para el contenedor */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0; /* Elimina el padding-top */
+    margin-bottom: 15px;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-color);
+    transition: all 0.3s ease;
+}
+
+/* RESPONSIVE STYLES */
+@media only screen and (max-width: 564px){
+    .Card-individual{
+        margin: 20px;
+    }
+}

@@ -1,0 +1,39 @@
+/* ESTILO DEL FOOTER */
+.footer {
+    background-color: #ffffff;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 14px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.footerDm {
+    background-color: #000000;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 14px;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+
+/* TEXTO DEL FOOTER */
+.footer p {
+    font-weight: bold;
+    color: #7a41b0;
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+}
+
+
+
