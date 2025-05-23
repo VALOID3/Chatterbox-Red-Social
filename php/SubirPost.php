@@ -2,7 +2,7 @@
 session_start();
 header('Content-Type: application/json'); // Indicar que la respuesta será JSON
 
-require_once 'conexion.php'; // CORREGIDO: de 'concxion.php' a 'conexion.php' en tu código anterior
+require_once 'conexion.php'; // CORREGIDO: De 'concxion.php' a 'conexion.php'
 
 if (!isset($_SESSION['usuario_id'])) {
     echo json_encode(['success' => false, 'message' => 'Usuario no autenticado.']);
@@ -29,6 +29,7 @@ try {
     }
 
     // 1. Insertar en la tabla Publicacion
+    // Tu tabla Publicacion tiene campos id_Publi, usuario_id, fecha, contenido
     $stmt_publi = $conn->prepare("INSERT INTO Publicacion (usuario_id, contenido) VALUES (?, ?)");
     if ($stmt_publi === false) {
         throw new Exception("Error al preparar la consulta de publicación: " . $conn->error);
@@ -43,6 +44,7 @@ try {
     $stmt_publi->close();
 
     // 2. Si hay un archivo multimedia, insertarlo en la tabla Multimedia
+    // Tu tabla Multimedia tiene campos id_Multi, publicacion_id, tipo, MultImagen
     if ($media_file && $media_file['error'] === UPLOAD_ERR_OK) {
         $file_tmp_path = $media_file['tmp_name'];
         $file_type = $media_file['type'];
