@@ -58,8 +58,12 @@ function validateLoginForm() {
     .then(response => response.json())
     .then(result => {
         if (result.success) {
-            window.location.href = 'dashboard.php';
-        } else {
+            if (result.rol === 'Administrador') {
+                window.location.href = 'admin/dashboardAdmin.php';
+            } else {
+                window.location.href = 'dashboard.php';
+            }
+        }else {
             alert('Error: ' + result.error);
         }
     })

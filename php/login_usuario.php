@@ -27,7 +27,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['usuario_nombre'] = $usuario['nom_usuario'];
             $_SESSION['usuario_rol'] = $usuario['rol'];
 
-            echo json_encode(["success" => true]);
+            echo json_encode([
+                "success" => true,
+                "rol" => $usuario['rol']
+            ]);
+            
         } else {
             echo json_encode(["success" => false, "error" => "Contraseña incorrecta"]);
         }

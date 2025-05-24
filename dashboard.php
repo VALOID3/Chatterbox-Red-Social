@@ -4,6 +4,11 @@ if (!isset($_SESSION['usuario_id'])) {
     header('Location: login.php');
     exit;
 }
+
+if ($_SESSION['usuario_rol'] !== 'Usuario') {
+    header("Location: dashboardAdmin.php"); // si es admin, lo mandamos a su dashboard
+    exit;
+}
 ?>
 
 
