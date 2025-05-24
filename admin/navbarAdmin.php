@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_rol'] !== 'Administrador') {
+    header("Location: ../login.php"); // O la ruta que uses para tu login
+    exit();
+}
+
+$usuario = $_SESSION['usuario_nombre'] ?? 'Invitado';
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -67,6 +80,10 @@
                         </div>
                         <div class="text">TAGS</div>
                     </button>
+
+                    <div class="usuario-nombre">
+                        Bienvenido, <strong><?= htmlspecialchars($usuario) ?></strong>
+                    </div>
 
                 </div>
             </div>
