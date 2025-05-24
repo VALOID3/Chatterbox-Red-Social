@@ -1,24 +1,43 @@
 <?php
 session_start();
+require_once '../conexion.php';
 
+// Solo permitir acceso a administradores
 if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_rol'] !== 'Administrador') {
-    header("Location: ../login.php"); // O la ruta que uses para tu login
+    header("Location: ../login.php");
     exit();
 }
+
+// Consulta usuarios con cantidad de publicaciones
+$sql = "
+    SELECT u.id_Usuario, u.correo, u.nom_usuario, u.contrasena, u.fecha_nacimiento, u.genero, u.rol,
+           (SELECT COUNT(*) FROM Publicacion p WHERE p.usuario_id = u.id_Usuario) AS posts
+    FROM Usuarios u
+    ORDER BY u.id_Usuario ASC
+";
+
+$result = $conn->query($sql);
+$usuarios = [];
+$totalUsuarios = 0;
+
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $usuarios[] = $row;
+    }
+    $totalUsuarios = count($usuarios);
+}
+
+$conn->close();
 ?>
 
-
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Usuarios</title>
-
+    <title>Usuarios | Admin</title>
     <link rel="stylesheet" href="../cssAdmin/AdminUsuarios.css">
-
     <!-- ES PARA LOS BOTONES -->
     <link rel="stylesheet" href="../css/iconsreverse.css">
     <!-- BOOTSTRAP ICONS -->
@@ -27,15 +46,13 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_rol'] !== 'Administrad
     <link rel="icon" type="image/png" href="images/CHATTERBOX.png">
 </head>
 
+
 <body>
 
-    <!-- NAVBAR -->
     <iframe src="navbarAdmin.php" class="navbar-frame"></iframe>
     <link rel="stylesheet" href="../css/navbar.css">
 
-    <!-- CONTENIDO PRINCIPAL -->
     <div class="admin-container">
-        <!-- BARRA SUPERIOR -->
         <div class="admin-header">
             <div class="search-bar">
                 <input type="text" class="search-input">
@@ -48,12 +65,10 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_rol'] !== 'Administrad
                     <i class="bi bi-flag-fill"></i> Generar Reporte
                 </button>
             </div>
-            <div class="user-count">
-                <span>Total de usuarios: <strong>1</strong></span>
-            </div>
+            <h2>Lista de Usuarios</h2>
+            <div class="user-count">Total de usuarios: <strong><?= $totalUsuarios ?></strong></div>
         </div>
 
-        <!-- LISTA DE USUARIOS -->
         <div class="user-list">
             <table>
                 <thead>
@@ -63,40 +78,28 @@ if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_rol'] !== 'Administrad
                         <th>Usuario</th>
                         <th>Contraseña</th>
                         <th>Fecha de Nacimiento</th>
-                        <th>Fecha de Creación</th>
+                        <th>Género</th>
+                        <th>Rol</th>
                         <th>Posts Publicados</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Ejemplo de fila de usuario -->
-                    <tr>
-                        <td>1</td>
-                        <td>Pedropascal@gmail.com</td>
-                        <td>Pedro Pascal</td>
-                        <td>password</td>
-                        <td>10/5/1975</td>
-                        <td>07/03/2025</td>
-                        <td>9</td>
-                        <td><span class="status active">Activo</span></td>
-                        <td>
-                            <button class="btn-toggle-status">
-                                 Desactivar
-                            </button>
-                        </td>
-                    </tr>
-                    <!-- Más filas de usuarios pueden agregarse aquí -->
+                    <?php foreach ($usuarios as $usuario): ?>
+                        <tr>
+                            <td><?= $usuario['id_Usuario'] ?></td>
+                            <td><?= htmlspecialchars($usuario['correo']) ?></td>
+                            <td><?= htmlspecialchars($usuario['nom_usuario']) ?></td>
+                            <td>••••••••</td>
+                            <td><?= $usuario['fecha_nacimiento'] ?></td>
+                            <td><?= $usuario['genero'] ?></td>
+                            <td><?= $usuario['rol'] ?></td>
+                            <td><?= $usuario['posts'] ?></td>
+                        </tr>
+                    <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
     </div>
-
-    <!-- FOOTER -->
-    <footer class="footer">
-        <p>&copy; 2024 CHATTERBOX | Todos los derechos reservados.</p>
-    </footer>
-    <link rel="stylesheet" href="../css/footer.css">
 
 </body>
 
