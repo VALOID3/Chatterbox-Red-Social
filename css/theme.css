@@ -1,0 +1,91 @@
+/* Variables para el modo claro (por defecto) */
+:root {
+    /* Colores primarios y secundarios */
+    --primary-color: #7a41b0;
+    --secondary-color: #535354;
+
+    /* Fondos generales */
+    --body-background-light: #f0f2f5; /* Un color de fondo claro genérico para login/registro */
+    --body-background-dark: #1d1d1d; /* Tu color de fondo oscuro actual para dashboard/perfil */
+    --navbar-background: #ffffff;
+    --footer-background: #ffffff;
+    --card-background: #ffffff;
+    --wrapper-background: #ffffff; /* Para los contenedores principales como login/editar/perfil */
+    --form-header-background: var(--primary-color); /* El color del header de los formularios */
+
+    /* Colores de texto */
+    --text-color-light: #000; /* Texto principal en modo claro */
+    --text-color-dark: #e0e0e0; /* Texto principal en modo oscuro */
+    --text-color-secondary: var(--secondary-color); /* Texto secundario (descripciones, labels) */
+    --text-color-black-to-white: #000; /* Para elementos que son negros en claro y blancos en oscuro */
+
+    /* Otros */
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --white-color: #FFF; /* Blanco "puro" */
+    --black-color: #000; /* Negro "puro" */
+    --input-border-color: #E3E4E6;
+    --input-background-color: #FFF;
+    --transition-3s: 0.3s;
+
+    /* Para el switch */
+    --switch-background-light: #b2e3ff;
+    --switch-knob-background-light: linear-gradient(40deg,#ff8c00,#ff8c00 70%);
+
+    /* Colores específicos de iconos/botones */
+    --icon-color-navbar: #7a41b0;
+    --icon-color-reverse: #ffffff; /* Iconos en botones con fondo de color */
+    --button-bg-reverse: #7a41b0;
+    --button-text-reverse: #ffffff;
+    --button-bg-red: #ff2d2d;
+    --button-text-red: #ffffff;
+}
+
+/* Variables para el modo oscuro */
+body.dark-mode {
+    --primary-color: #9b5cdb; /* Un tono un poco diferente o el mismo si lo prefieres */
+    --secondary-color: #b0b0b0;
+
+    --body-background-light: #1a1a1a;
+    --body-background-dark: #1d1d1d;
+    --navbar-background: #2a2a2a;
+    --footer-background: #2a2a2a;
+    --card-background: #333333;
+    --wrapper-background: #222222;
+    --form-header-background: var(--primary-color); /* Puede seguir siendo el primary-color */
+
+    --text-color-light: #e0e0e0;
+    --text-color-dark: #e0e0e0;
+    --text-color-secondary: #b0b0b0;
+    --text-color-black-to-white: #e0e0e0;
+
+    --shadow-color: rgba(255, 255, 255, 0.1);
+    --white-color: #222; /* El "blanco" en modo oscuro será un gris oscuro */
+    --black-color: #e0e0e0; /* El "negro" en modo oscuro será un gris claro */
+    --input-border-color: #666;
+    --input-background-color: #444;
+
+    /* Para el switch */
+    --switch-background-light: #110244;
+    --switch-knob-background-light: #110244;
+    --switch-knob-shadow-dark: inset -3px -2px 5px -2px #ffffff, inset -10px -4px 0 0 #ffffff;
+
+    /* Colores específicos de iconos/botones */
+    --icon-color-navbar: #ffffff; /* Los iconos del navbar se vuelven blancos */
+    --icon-color-reverse: #e0e0e0; /* Iconos en botones con fondo de color */
+    --button-bg-reverse: #9b5cdb;
+    --button-text-reverse: #e0e0e0;
+    --button-bg-red: #cc0000;
+    --button-text-red: #e0e0e0;
+}
+
+/* Transiciones para suavizar el cambio */
+body, .navbar-frame, .footer, .post, .card, .wrapper,
+.input-field, .input-box-big textarea, .btn-submit, .Btn, .RedBtn {
+    transition: background-color var(--transition-3s) ease, color var(--transition-3s) ease,
+                border-color var(--transition-3s) ease, box-shadow var(--transition-3s) ease;
+}
+
+/* Ajustes específicos para elementos */
+.input-field, .input-box-big textarea {
+    background-color: var(--input-background-color);
+}
