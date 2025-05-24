@@ -115,6 +115,33 @@
 
             </div>
 
+
+
+            <!-- SELECCIONAR ROL USUARIO -->
+
+            <!--
+            <link rel="stylesheet" href="css/RolUsuario.css">
+
+            <div class="container-navbuttons">  -->
+
+                <!-- From Uiverse.io by Pradeepsaranbishnoi --> <!--
+                <div class="mydict">
+                    <div>
+                        <label>
+                            <input type="radio" name="reg-rol" value="Administrador">
+                            <span>Administrador</span>
+                        </label>
+                        <label>
+                            <input type="radio" name="reg-rol" value="Usuario">
+                            <span>Usuario</span>
+                        </label>
+
+                    </div>
+                </div>
+
+            </div>-->
+
+
             <div class="input-box">
                 <button class="btn-submit" id="SignUpBtn" type="button" onclick="validateRegisterForm()">Registrarse <i
                         class='bx bx-user-plus'></i></button>
