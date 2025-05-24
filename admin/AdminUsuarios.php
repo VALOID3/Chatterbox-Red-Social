@@ -61,10 +61,13 @@ $conn->close();
                 </button>
             </div>
             <div class="report-button">
-                <button class="btn-report">
-                    <i class="bi bi-flag-fill"></i> Generar Reporte
-                </button>
+                <form action="generar_reporte_usuarios.php" method="post">
+                    <button type="submit" class="btn-report">
+                        <i class="bi bi-flag-fill"></i> Reporte cantidad USUARIOS
+                    </button>
+                </form>
             </div>
+
             <h2>Lista de Usuarios</h2>
             <div class="user-count">Total de usuarios: <strong><?= $totalUsuarios ?></strong></div>
         </div>
