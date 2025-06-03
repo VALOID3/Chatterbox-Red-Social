@@ -1,15 +1,4 @@
-<?php
-session_start();
-if (!isset($_SESSION['usuario_id'])) {
-    header('Location: login.php');
-    exit;
-}
-
-if ($_SESSION['usuario_rol'] !== 'Usuario') {
-    header("Location: dashboardAdmin.php"); // si es admin, lo mandamos a su dashboard
-    exit;
-}
-?>
+<?php require_once './Midware/auth_usuario.php'; ?>
 
 
 <!DOCTYPE html>
