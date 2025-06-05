@@ -3,7 +3,7 @@
 
 /* COLOR VARIABLES */
 :root {
-  --primary-color: #7a41b0;
+  --primary-color: #00a4cb;
   --secondary-color: #535354;
   --background-color: #1d1d1d;
   --shadow-color: rgba(0, 0, 0, 0.1);
@@ -136,7 +136,7 @@ body {
   }
   
   .like-btn:hover, .download-btn:hover {
-    background-color: #6a359c; 
+    background-color: #006987; 
   }
 
 /* RESPONSIVE */
@@ -190,7 +190,7 @@ body {
 }
 
 .create-post-btn:hover {
-    background-color: #6a359c;
+    background-color: #006987;
     transform: scale(1.05);
 }
 
@@ -310,7 +310,7 @@ body {
 }
 
 .btn-change-photo:hover {
-    background-color: #6a359c;
+    background-color: #006987;
 }
 
 .container-navbuttons {

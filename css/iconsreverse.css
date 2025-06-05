@@ -11,7 +11,7 @@
     position: relative;
     overflow: hidden;
     transition-duration: .3s;
-    background-color: #7a41b0;
+    background-color: #00a4cb;
     
   }
   
@@ -27,7 +27,7 @@
     position: relative;
     overflow: hidden;
     transition-duration: .3s;
-    background-color: #ff2d2d; /* Color rojo */
+    background-color: #00ebff; /* Color rojo */
 }
 
   /* plus sign */
@@ -99,7 +99,7 @@
     position: relative;
     overflow: hidden;
     transition-duration: .3s;
-    background-color: #7a41b0; /* AQUI SON LOS BOTONES*/
+    background-color: #00a4cb; /* AQUI SON LOS BOTONES*/
     
   }
   

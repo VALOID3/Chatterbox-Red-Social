@@ -11,7 +11,7 @@
     position: relative;
     overflow: hidden;
     transition-duration: .3s;
-    background-color: #7a41b0;
+    background-color: #00a4cb;
     
   }
   
@@ -105,7 +105,7 @@
   }
   
   .sign svg path {
-    fill: #7a41b0;
+    fill: #00a4cb;
   }
   
   /* text */
@@ -114,7 +114,7 @@
     right: 0%;
     width: 0%;
     opacity: 0;
-    color: #7a41b0;
+    color: #00a4cb;
     font-size: 1.1em;
     font-weight: 600;
     transition-duration: .3s;

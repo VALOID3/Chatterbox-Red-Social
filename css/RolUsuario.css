@@ -1,8 +1,8 @@
 /* From Uiverse.io by Pradeepsaranbishnoi */ 
 :focus {
     outline: 0;
-    border-color: #7a41b0;
-    box-shadow: 0 0 0 4px #7a41b0;
+    border-color: #00a4cb;
+    box-shadow: 0 0 0 4px #00a4cb;
   }
   
   .mydict div {
@@ -23,10 +23,10 @@
   }
   
   .mydict input[type="radio"]:checked + span {
-    box-shadow: 0 0 0 0.0625em #7a41b0;
+    box-shadow: 0 0 0 0.0625em #00a4cb;
     background-color: #f0ddff;
     z-index: 1;
-    color: #7a41b0;
+    color: #00a4cb;
   }
   
   label span {

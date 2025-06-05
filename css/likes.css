@@ -16,7 +16,7 @@
 
 /* COLOR VARIABLES */
 :root {
-    --primary-color: #7a41b0;
+    --primary-color: #00a4cb;
     --secondary-color: #535354;
     --background-color: #1d1d1d;
     --shadow-color: rgba(0, 0, 0, 0.1);
@@ -254,7 +254,7 @@ body {
 .profile-picture:hover {
     filter: brightness(0.9); 
     transform: scale(1.05); 
-    box-shadow:0 10px 10px #7a41b0b3; 
+    box-shadow:0 10px 10px #006987; 
 }
 
 .background-picture-container {
@@ -332,7 +332,7 @@ body {
 
 .post:hover {
     transform: scale(1.05); 
-    box-shadow: 0 0 10px 1px #7a41b0b3; 
+    box-shadow: 0 0 10px 1px #006987; 
 }
 
 /* IMAGEN DENTRO DE LA PUBLICACIÓN */
@@ -448,7 +448,7 @@ body {
   }
   
   .like-btn:hover, .download-btn:hover, .edit-post-btn:hover {
-    background-color: #6a359c; 
+    background-color: #006987; 
   }
   
   .close-Full {
@@ -561,7 +561,7 @@ body {
     align-items: center;
     gap: 10px; 
     padding: 15px 30px; 
-    background-color: #db0000; 
+    background-color: #00ebff; 
     color: var(--white-color);
     border: none;
     border-radius: 30px;
@@ -575,7 +575,7 @@ body {
     background-color: #6a359c; 
   }
   .edit-post-delete:hover {
-    background-color: #8a0000; 
+    background-color: #9af7ff; 
   }
 
   .edit-post-buttons {

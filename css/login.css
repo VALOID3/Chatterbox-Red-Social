@@ -3,13 +3,13 @@
 
 /* COLOR VARIABLES */
 :root {
-    --primary-color: #7a41b0;
+    --primary-color: #00a4cb;
     --secondary-color: #535354;
     --background-color: #1d1d1d;
     --shadow-color: rgba(0, 0, 0, 0.1);
     --white-color: #FFF;
     --black-color: #000;
-    --input-border-color: #E3E4E6;
+    --input-border-color: #00143d;
     --transition-3s: 0.3s;
 }
 

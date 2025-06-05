@@ -3,9 +3,9 @@
 
 /* COLOR VARIABLES */
 :root {
-  --primary-color: #7a41b0;
+  --primary-color: #00a4cb;
   --secondary-color: #535354;
-  --background-color: #1d1d1d;
+  --background-color: #ffffff;   /*color de fondo para el chat*/
   --shadow-color: rgba(0, 0, 0, 0.1);
   --white-color: #FFF;
   --black-color: #000;
@@ -77,7 +77,7 @@ body {
 }
 
 .search-form .btn:hover {
-  background-color: #6a359c;
+  background-color: #006987;
 }
 
 .nav-link {
@@ -215,7 +215,7 @@ body {
 }
 
 .chat-input .btn:hover {
-  background-color: #6a359c;
+  background-color: #006987;
 }
 
 /* FOOTER */

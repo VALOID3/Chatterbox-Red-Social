@@ -15,7 +15,7 @@
 
 /* COLOR VARIABLES */
 :root {
-    --primary-color: #7a41b0;
+    --primary-color: #00a4cb;
     --secondary-color: #535354;
     --background-color: #1d1d1d;
     --shadow-color: rgba(0, 0, 0, 0.1);
@@ -97,7 +97,7 @@ body {
 }
 
 .search-btn:hover {
-    background: #5a2b8a;
+    background: #006987;
 }
 
 .search-btn i {
