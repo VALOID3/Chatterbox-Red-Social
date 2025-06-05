@@ -3,7 +3,7 @@
 
 /* COLOR VARIABLES */
 :root {
-    --primary-color: #7a41b0;
+    --primary-color: #00a4cb;
     --secondary-color: #535354;
     --background-color: #1d1d1d;
     --white-color: #FFF;
@@ -78,7 +78,7 @@ body {
 }
 
 .search-button:hover {
-    background-color: #6a359c;
+    background-color: #006987;
 }
 
 .report-button .btn-report {
@@ -92,7 +92,7 @@ body {
 }
 
 .report-button .btn-report:hover {
-    background-color: #444;
+    background-color: #00ebff;
 }
 
 .user-count {
@@ -156,7 +156,7 @@ body {
 }
 
 .btn-toggle-status:hover {
-    background-color: #6a359c;
+    background-color: #006987;
 }
 
 /* RESPONSIVE STYLES */
