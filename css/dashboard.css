@@ -199,7 +199,7 @@ body {
 .create-post-container {
     display: none;
     position: absolute;
-    top: 80%;
+    top: 125%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 1000px; 
@@ -445,4 +445,9 @@ body {
 
 .footer-btn .bi {
     font-size: 20px;
+}
+
+.post-footer .like-btn.liked {
+    color: #e0245e; /* Un color rojo/rosa para el "like" */
+    font-weight: bold;
 }

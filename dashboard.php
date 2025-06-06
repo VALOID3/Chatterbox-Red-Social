@@ -110,7 +110,15 @@
                 <?php endif; ?>
 
                 <div class="post-footer">
-                    <button class="footer-btn"><i class="bi bi-heart"></i> Me gusta</button>
+                <?php 
+                        // Determinar la clase del ícono y la clase 'liked'
+                        $likedClass = $post['user_has_liked'] ? 'liked' : '';
+                        $iconClass = $post['user_has_liked'] ? 'bi-heart-fill' : 'bi-heart';
+                    ?>
+                    <button class="footer-btn like-btn <?= $likedClass ?>" data-post-id="<?= $post['id_Publi'] ?>">
+                        <i class="bi <?= $iconClass ?>"></i> 
+                        <span class="like-count"><?= $post['total_likes'] ?></span>
+                    </button>
                     <button class="footer-btn"><i class="bi bi-chat-dots"></i> Comentar</button>
                 </div>
             </div>
