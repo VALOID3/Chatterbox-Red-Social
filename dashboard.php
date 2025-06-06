@@ -51,7 +51,7 @@
 
             <div class="post-inputs">
                 <div class="input-box-big">
-                    <textarea class="input-field" id="post-description" required></textarea>
+                    <textarea class="input-field" id="post-description"  name="contenido" required></textarea>
                     <label for="post-description" class="label">Descripción</label>
                 </div>
 
