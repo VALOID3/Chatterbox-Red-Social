@@ -6,7 +6,7 @@ DELETE FROM Usuarios;
 DROP TABLE IF EXISTS Multimedia;
 
 SELECT * FROM usuarios;
-
+select * FROM likes;
 
 CREATE TABLE Usuarios (
     id_Usuario INT PRIMARY KEY AUTO_INCREMENT,     
@@ -70,4 +70,14 @@ CREATE TABLE mensajes (
     fecha_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (remitente_id) REFERENCES Usuarios(id_Usuario) ON DELETE CASCADE,
     FOREIGN KEY (destinatario_id) REFERENCES Usuarios(id_Usuario) ON DELETE CASCADE
+);
+
+CREATE TABLE Comentarios (
+    id_comentario INT AUTO_INCREMENT PRIMARY KEY,
+    publicacion_id INT NOT NULL,
+    usuario_id INT NOT NULL,
+    contenido TEXT NOT NULL,
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (publicacion_id) REFERENCES Publicacion(id_Publi) ON DELETE CASCADE,
+    FOREIGN KEY (usuario_id) REFERENCES Usuarios(id_Usuario) ON DELETE CASCADE
 );
