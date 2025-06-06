@@ -1,5 +1,5 @@
 <?php require_once './Midware/auth_usuario.php'; ?>
-
+<?php require_once 'php/get_posts.php'; ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -84,7 +84,41 @@
 
 
     <!-- PUBLICACIONES -->
-  
+    <main class="post-container">
+    <?php if (!empty($posts)): ?>
+        <?php foreach ($posts as $post): ?>
+            <div class="post-card">
+                <div class="post-header">
+                    <div class="post-author-info">
+                        <?php if (!empty($post['imagen_perfil'])): ?>
+                            <img src="data:image/jpeg;base64,<?= base64_encode($post['imagen_perfil']) ?>" alt="Foto de perfil" class="author-avatar">
+                        <?php else: ?>
+                            <img src="images/PorfileP.png" alt="Foto de perfil" class="author-avatar"> <?php endif; ?>
+                        <span class="author-name"><?= htmlspecialchars($post['nom_usuario']) ?></span>
+                    </div>
+                    <span class="post-time"><?= date('d M Y, H:i', strtotime($post['fecha'])) ?></span>
+                </div>
+
+                <div class="post-body">
+                    <p><?= htmlspecialchars($post['contenido']) ?></p>
+                </div>
+
+                <?php if (!empty($post['MultImagen'])): ?>
+                    <div class="post-image-container">
+                        <img src="data:image/jpeg;base64,<?= base64_encode($post['MultImagen']) ?>" alt="Imagen del post" class="post-image">
+                    </div>
+                <?php endif; ?>
+
+                <div class="post-footer">
+                    <button class="footer-btn"><i class="bi bi-heart"></i> Me gusta</button>
+                    <button class="footer-btn"><i class="bi bi-chat-dots"></i> Comentar</button>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <p class="text-center">No hay publicaciones para mostrar. ¡Sé el primero en publicar!</p>
+    <?php endif; ?>
+</main>
 
     <script src="js/dashboard.js"></script>
 
