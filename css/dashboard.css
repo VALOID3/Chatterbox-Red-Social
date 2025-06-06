@@ -41,13 +41,7 @@ body {
 }
 
 /* CONTENEDOR POSTS */
-.post-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 150px;
-    padding: 20px;
-}
+
 
 /* POST */
 .post {
@@ -204,11 +198,11 @@ body {
 /* CONTENEDOR FORMULARIO DE CREAR POST */
 .create-post-container {
     display: none;
-    position: fixed;
-    top: 50%;
+    position: absolute;
+    top: 80%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 800px; 
+    width: 1000px; 
     background-color: var(--white-color);
     border-radius: 15px;
     padding: 25px;
@@ -363,11 +357,13 @@ body {
 /* para mostrar los post*/
 
 .post-container {
-    max-width: 650px;
-    margin: 20px auto;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
+    padding: 20px;
+    margin-bottom: 30px;
+    /* --- 2. AGREGA ESTAS DOS LÍNEAS AQUÍ DENTRO --- */
+  
 }
 
 .post-card {
@@ -411,6 +407,7 @@ body {
     padding: 0 16px 16px 16px;
     font-size: 14px;
     line-height: 1.4;
+    color: #000;
 }
 
 .post-image-container {
