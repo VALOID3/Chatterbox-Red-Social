@@ -48,35 +48,6 @@ body {
     margin-bottom: 20px;
 }
 
-.search-bar {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.search-input {
-    padding: 10px;
-    border: 1px solid var(--input-border-color);
-    border-radius: 5px;
-    background-color: var(--primary-color);
-    color: var(--white-color);
-    width: 300px;
-}
-
-.search-button {
-    background-color: var(--primary-color);
-    color: var(--white-color);
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color var(--transition-3s);
-}
-
-.search-button:hover {
-    background-color: #006987;
-}
-
 .report-button .btn-report {
     background-color: var(--primary-color);
     color: var(--white-color);

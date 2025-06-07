@@ -34,12 +34,6 @@ require_once '../conexion.php';
     <div class="admin-container">
         <!-- BARRA SUPERIOR -->
         <div class="admin-header">
-            <div class="search-bar">
-                <input type="text" class="search-input">
-                <button class="search-button">
-                    <i class="bi bi-search"></i>
-                </button>
-            </div>
             <div class="report-button">
                 <button class="btn-report">
                     <i class="bi bi-flag-fill"></i> Generar Reporte
