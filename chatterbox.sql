@@ -82,3 +82,8 @@ CREATE TABLE Comentarios (
     FOREIGN KEY (publicacion_id) REFERENCES Publicacion(id_Publi) ON DELETE CASCADE,
     FOREIGN KEY (usuario_id) REFERENCES Usuarios(id_Usuario) ON DELETE CASCADE
 );
+
+
+ALTER TABLE Usuarios
+ADD COLUMN nota VARCHAR(60) NULL DEFAULT NULL,
+ADD COLUMN nota_timestamp TIMESTAMP NULL DEFAULT NULL;
