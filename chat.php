@@ -1,10 +1,5 @@
 <?php
-session_start();
-
-if (!isset($_SESSION['usuario_id'])) {
-    header("Location: login.php");
-    exit;
-}
+require_once './Midware/auth_usuario.php';
 
 require_once 'conexion.php';
 ?>
