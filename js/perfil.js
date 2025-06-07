@@ -154,5 +154,68 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   }
+
+
+  // ... al final del archivo, dentro del evento DOMContentLoaded
+
+  // --- LÓGICA PARA LAS NOTAS DE PERFIL ---
+  const editNoteBtn = document.getElementById("edit-note-btn");
+  const editNoteForm = document.getElementById("edit-note-form");
+  const saveNoteBtn = document.getElementById("save-note-btn");
+  const cancelNoteBtn = document.getElementById("cancel-note-btn");
+  const noteInput = document.getElementById("note-input");
+  const displayNote = document.getElementById("display-note");
+  const editNoteBtnText = editNoteBtn.querySelector('.text');
+
+  if (editNoteBtn) {
+    editNoteBtn.addEventListener("click", () => {
+      // Rellenar el input con la nota actual al abrir
+      noteInput.value = displayNote.textContent;
+      editNoteForm.style.display = "flex";
+      editNoteBtn.style.display = "none"; // Ocultar el botón de "Añadir/Editar Nota"
+    });
+  }
+
+  if (cancelNoteBtn) {
+    cancelNoteBtn.addEventListener("click", () => {
+      editNoteForm.style.display = "none";
+      editNoteBtn.style.display = "flex"; // Mostrar de nuevo el botón principal
+    });
+  }
+
+  if (saveNoteBtn) {
+    saveNoteBtn.addEventListener("click", () => {
+      const nota = noteInput.value.trim();
+
+      fetch('php/guardar_nota.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ nota: nota })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          if (nota) {
+            displayNote.textContent = nota;
+            displayNote.style.display = "block";
+            editNoteBtnText.textContent = 'EDITAR NOTA';
+          } else {
+            displayNote.textContent = "";
+            displayNote.style.display = "none";
+            editNoteBtnText.textContent = 'AÑADIR NOTA';
+          }
+          // Ocultar formulario y mostrar botón principal
+          editNoteForm.style.display = "none";
+          editNoteBtn.style.display = "flex";
+        } else {
+          alert("Error: " + data.message);
+        }
+      })
+      .catch(error => {
+        console.error('Error en la solicitud:', error);
+        alert("Ocurrió un error al conectar con el servidor.");
+      });
+    });
+  }
   
 });
