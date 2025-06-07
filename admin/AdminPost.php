@@ -1,4 +1,8 @@
-<?php require_once '../Midware/auth_admin.php'; ?>
+<?php 
+require_once '../Midware/auth_admin.php';
+require_once '../conexion.php';
+
+?>
 
 
 
