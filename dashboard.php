@@ -99,6 +99,33 @@ require_once 'php/get_posts.php';
             font-weight: bold;
             min-height: 25px;
         }
+
+        .trivia-options-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr; /* 2 columnas */
+            gap: 10px; /* Espacio entre botones */
+            margin: 15px 0;
+        }
+
+        .option-btn {
+            padding: 12px 8px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            background-color: #f8f9fa;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover {
+            border-color: #007bff;
+            background-color: #e9f2ff;
+        }
+
+        .option-btn:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
     </style>
 </head>
 
@@ -145,11 +172,9 @@ require_once 'php/get_posts.php';
 
     <div class="trivia-card" style="display: none;">
         <h3><i class="bi bi-patch-question-fill"></i> Trivia del Día</h3>
-        <p class="trivia-question">Cargando trivia...</p>
-        <div class="trivia-buttons">
-            <button class="trivia-btn" data-answer="True">Cierto</button>
-            <button class="trivia-btn" data-answer="False">Falso</button>
-        </div>
+        <p class="trivia-question">Cargando trivia en español...</p>
+        <div class="trivia-options-grid"> 
+            </div>
         <p class="trivia-result"></p>
     </div>
     <main class="post-container">
@@ -219,35 +244,34 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!triviaCard) return;
 
     const questionText = triviaCard.querySelector('.trivia-question');
-    const buttons = triviaCard.querySelectorAll('.trivia-btn');
+    const optionsGrid = triviaCard.querySelector('.trivia-options-grid');
     const resultText = triviaCard.querySelector('.trivia-result');
     
-    // Almacenará el lote de preguntas
     let triviaQuestions = []; 
-    // Llevará la cuenta de la pregunta actual
     let currentTriviaIndex = 0; 
     
-    // URL para pedir un lote de 10 preguntas
-    const apiUrl = 'https://opentdb.com/api.php?amount=10&type=boolean&encode=url3986';
+    // Nueva URL de la API con idioma español (es) y región México (MX)
+    const apiUrl = 'https://the-trivia-api.com/v2/questions?limit=10&region=MX&lang=es';
 
     /**
-     * Pide un nuevo lote de preguntas a la API.
+     * Pide un nuevo lote de preguntas a la nueva API.
      */
     async function fetchTriviaBatch() {
-        triviaCard.style.display = 'block'; // Mostrar la tarjeta
-        questionText.textContent = 'Cargando trivia...';
-        buttons.forEach(btn => btn.disabled = true);
+        triviaCard.style.display = 'block';
+        questionText.textContent = 'Cargando trivia en español...';
+        optionsGrid.innerHTML = ''; // Limpiar botones viejos
+        resultText.textContent = '';
 
         try {
             const response = await fetch(apiUrl);
             const data = await response.json();
 
-            if (data.response_code === 0 && data.results.length > 0) {
-                triviaQuestions = data.results; // Guardar el lote
-                currentTriviaIndex = 0; // Reiniciar el índice
-                displayCurrentQuestion(); // Mostrar la primera pregunta del lote
+            if (data && data.length > 0) {
+                triviaQuestions = data;
+                currentTriviaIndex = 0;
+                displayCurrentQuestion();
             } else {
-                questionText.textContent = 'No se pudo cargar la trivia en este momento.';
+                questionText.textContent = 'No se pudo cargar la trivia en español.';
             }
         } catch (error) {
             console.error('Error al cargar la trivia:', error);
@@ -256,52 +280,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     /**
-     * Muestra la pregunta actual del lote guardado.
+     * Muestra la pregunta actual y sus opciones.
      */
     function displayCurrentQuestion() {
-        // Si nos quedamos sin preguntas, pedimos un nuevo lote
         if (currentTriviaIndex >= triviaQuestions.length) {
-            questionText.textContent = '¡Genial! Cargando más preguntas...';
+            questionText.textContent = '¡Excelente! Cargando más preguntas...';
             fetchTriviaBatch();
             return;
         }
 
         const currentQuestion = triviaQuestions[currentTriviaIndex];
         
-        // Actualizar la tarjeta
-        questionText.textContent = decodeURIComponent(currentQuestion.question);
-        triviaCard.dataset.correctAnswer = currentQuestion.correct_answer;
-        resultText.textContent = ''; // Limpiar resultado
-        buttons.forEach(btn => btn.disabled = false); // Habilitar botones
+        // El formato de la nueva API es un poco diferente
+        questionText.textContent = currentQuestion.question.text;
+        
+        // Juntar la respuesta correcta y las incorrectas en un solo array
+        const allAnswers = [...currentQuestion.incorrectAnswers, currentQuestion.correctAnswer];
+        
+        // Mezclar las respuestas para que la correcta no aparezca siempre al final
+        allAnswers.sort(() => Math.random() - 0.5);
+
+        // Limpiar botones anteriores y crear los nuevos
+        optionsGrid.innerHTML = '';
+        allAnswers.forEach(answer => {
+            const button = document.createElement('button');
+            button.className = 'option-btn';
+            button.textContent = answer;
+            button.addEventListener('click', handleAnswer);
+            optionsGrid.appendChild(button);
+        });
+        
+        // Guardar la respuesta correcta en la tarjeta para poder verificarla luego
+        triviaCard.dataset.correctAnswer = currentQuestion.correctAnswer;
+        resultText.textContent = '';
     }
 
     /**
-     * Maneja la respuesta del usuario.
+     * Maneja la respuesta del usuario para opción múltiple.
      */
     function handleAnswer(event) {
-        const userAnswer = event.target.dataset.answer;
+        const userAnswer = event.target.textContent;
         const correctAnswer = triviaCard.dataset.correctAnswer;
-
-        buttons.forEach(btn => btn.disabled = true);
-
+        
+        // Deshabilitar todos los botones
+        document.querySelectorAll('.option-btn').forEach(btn => {
+            btn.disabled = true;
+            // Opcional: Marcar visualmente la respuesta correcta e incorrecta
+            if (btn.textContent === correctAnswer) {
+                btn.style.borderColor = '#28a745';
+                btn.style.backgroundColor = '#d4edda';
+            } else if (btn.textContent === userAnswer) {
+                btn.style.borderColor = '#dc3545';
+                btn.style.backgroundColor = '#f8d7da';
+            }
+        });
+        
         if (userAnswer === correctAnswer) {
             resultText.textContent = '¡Correcto!';
             resultText.style.color = '#28a745';
         } else {
-            const readableAnswer = correctAnswer === 'True' ? 'Cierto' : 'Falso';
-            resultText.textContent = `Incorrecto. La respuesta era: ${readableAnswer}`;
+            resultText.textContent = `Incorrecto. La respuesta era: ${correctAnswer}`;
             resultText.style.color = '#dc3545';
         }
 
-        currentTriviaIndex++; // Pasar al siguiente índice
-
-        // Esperar 2 segundos y mostrar la siguiente pregunta del lote
-        setTimeout(displayCurrentQuestion, 2000);
+        currentTriviaIndex++;
+        setTimeout(displayCurrentQuestion, 2500); // Dar un poco más de tiempo para ver la respuesta
     }
 
     // --- Iniciar todo ---
-    buttons.forEach(button => button.addEventListener('click', handleAnswer));
-    fetchTriviaBatch(); // Pedir el primer lote de preguntas al cargar la página
+    fetchTriviaBatch();
 });
 </script>
 
