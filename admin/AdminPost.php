@@ -1,7 +1,35 @@
-<?php 
+<?php
 require_once '../Midware/auth_admin.php';
 require_once '../conexion.php';
 
+// Consulta para obtener las publicaciones con su propietario y conteo de likes
+$sql = "
+    SELECT
+        p.id_Publi,
+        u.nom_usuario AS propietario,
+        p.contenido AS descripcion,
+        p.fecha AS fecha_creacion,
+        (SELECT COUNT(*) FROM likes l WHERE l.publicacion_id = p.id_Publi) AS likes
+    FROM
+        Publicacion p
+    JOIN
+        Usuarios u ON p.usuario_id = u.id_Usuario
+    ORDER BY
+        p.id_Publi ASC
+";
+
+$result = $conn->query($sql);
+$publicaciones = [];
+$totalPublicaciones = 0;
+
+if ($result && $result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $publicaciones[] = $row;
+    }
+    $totalPublicaciones = count($publicaciones);
+}
+
+$conn->close();
 ?>
 
 
@@ -16,9 +44,7 @@ require_once '../conexion.php';
 
     <link rel="stylesheet" href="../cssAdmin/AdminPost.css">
 
-    <!-- ES PARA LOS BOTONES -->
     <link rel="stylesheet" href="../css/iconsreverse.css">
-    <!-- BOOTSTRAP ICONS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
     <link rel="icon" type="image/png" href="images/CHATTERBOX.png">
@@ -26,13 +52,10 @@ require_once '../conexion.php';
 
 <body>
 
-    <!-- NAVBAR -->
     <iframe src="navbarAdmin.php" class="navbar-frame"></iframe>
     <link rel="stylesheet" href="../css/navbar.css">
 
-    <!-- CONTENIDO PRINCIPAL -->
     <div class="admin-container">
-        <!-- BARRA SUPERIOR -->
         <div class="admin-header">
             <div class="report-button">
                 <button class="btn-report">
@@ -40,53 +63,44 @@ require_once '../conexion.php';
                 </button>
             </div>
             <div class="post-count">
-                <span>Total de publicaciones: <strong>1</strong></span>
+                <span>Total de publicaciones: <strong><?= $totalPublicaciones ?></strong></span>
             </div>
         </div>
 
-        <!-- LISTA DE POSTS -->
         <div class="post-list">
             <table>
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>IDM</th>
                         <th>Propietario</th>
                         <th>Descripción</th>
                         <th>Likes</th>
-                        <th>Tag</th>
                         <th>Fecha de Creación</th>
                         <th>Estado</th>
-                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Ejemplo de fila de post -->
-                    <tr>
-                        <td>1</td>
-                        <td>09213</td>
-                        <td>Pedro Pascal</td>
-                        <td>    Albion Online es un MMORPG no lineal en el que escribes tu propia historia sin
-                            limitarte a seguir un camino prefijado. Explora un amplio mundo abierto con cinco biomas únicos.
-                            Todo cuanto
-                            hagas tendrá repercusión en el mundo.</td>
-                        <td>10</td>
-                        <td>Videojuegos</td>
-                        <td>07/03/2025</td>
-                        <td><span class="status active">Activo</span></td>
-                        <td>
-                            <button class="btn-toggle-status">
-                                Desactivar
-                            </button>
-                        </td>
-                    </tr>
-                    <!-- Más filas de posts pueden agregarse aquí -->
+                    <?php if (!empty($publicaciones)): ?>
+                        <?php foreach ($publicaciones as $post): ?>
+                            <tr>
+                                <td><?= $post['id_Publi'] ?></td>
+                                <td><?= htmlspecialchars($post['propietario']) ?></td>
+                                <td><?= htmlspecialchars($post['descripcion']) ?></td>
+                                <td><?= $post['likes'] ?></td>
+                                <td><?= date('d/m/Y', strtotime($post['fecha_creacion'])) ?></td>
+                                <td><span class="status active">Publicado</span></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="6" style="text-align: center;">No hay publicaciones para mostrar.</td>
+                        </tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- FOOTER -->
     <footer class="footer">
         <p>&copy; 2024 CHATTERBOX | Todos los derechos reservados.</p>
     </footer>
