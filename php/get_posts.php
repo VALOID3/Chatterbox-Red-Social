@@ -10,7 +10,7 @@ require_once __DIR__ . '/../conexion.php';
 $current_user_id = $_SESSION['usuario_id'] ?? 0;
 $posts = [];
 
-// Consulta SQL actualizada para incluir el conteo de likes y si el usuario actual le dio like
+// --- MODIFICADO --- Se añade m.tipo a la consulta para diferenciar entre imagen y video.
 $sql = "
     SELECT
         p.id_Publi,
@@ -19,6 +19,7 @@ $sql = "
         u.nom_usuario,
         u.imagen_perfil,
         m.MultImagen,
+        m.tipo,
         (SELECT COUNT(*) FROM likes WHERE publicacion_id = p.id_Publi) AS total_likes,
         (SELECT COUNT(*) FROM likes WHERE publicacion_id = p.id_Publi AND usuario_id = ?) > 0 AS user_has_liked
     FROM

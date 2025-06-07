@@ -13,9 +13,7 @@
     <link rel="stylesheet" href="css/background.css">
     <link rel="stylesheet" href="css/dashboard.css">
 
-    <!-- ES PARA LOS BOTONES -->
     <link rel="stylesheet" href="css/iconsreverse.css">
-    <!-- BOOTSTRAP ICONS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
     <link rel="icon" type="image/png" href="images/CHATTERBOX.png">
@@ -24,11 +22,9 @@
 
 <body>
 
-    <!-- NAVBAR -->
     <iframe src="navbar.php" class="navbar-frame"></iframe>
     <link rel="stylesheet" href="css/navbar.css">
 
-    <!-- BOTÓN DE CREAR POST -->
     <button class="create-post-btn">
         <i class="bi bi-plus-lg"></i>
         <span class="create-text">CREAR POST</span>
@@ -36,7 +32,6 @@
 
     <div id="overlay" class="overlay"></div>
 
-    <!-- FORMULARIO CREAR POST -->
     <form id="create-post-form" class="create-post-container" enctype="multipart/form-data">
         <div class="form-header">
             <div class="titles">
@@ -46,7 +41,6 @@
 
         <div class="post-content">
             <div class="image-preview-container">
-                <img id="post-preview" src="">
             </div>
 
             <div class="post-inputs">
@@ -56,12 +50,11 @@
                 </div>
 
                 <input type="file" id="post-image-upload" name="media" class="post-upload" accept="image/*,video/*" hidden>
-                <button class="btn-change-photo" onclick="document.getElementById('post-image-upload').click()">
+                <button type="button" class="btn-change-photo" onclick="document.getElementById('post-image-upload').click()">
                     <i class="bi bi-upload"></i>
-                    Subir Imagen
+                    Subir Archivo
                 </button>
 
-                <!-- BOTONES -->
                 <div class="container-navbuttons">
                     <button class="Btn" id="publish-post">
                         <div class="sign">
@@ -79,11 +72,10 @@
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 
 
 
-    <!-- PUBLICACIONES -->
     <main class="post-container">
     <?php if (!empty($posts)): ?>
         <?php foreach ($posts as $post): ?>
@@ -105,7 +97,14 @@
 
                 <?php if (!empty($post['MultImagen'])): ?>
                     <div class="post-image-container">
-                        <img src="data:image/jpeg;base64,<?= base64_encode($post['MultImagen']) ?>" alt="Imagen del post" class="post-image">
+                        <?php if ($post['tipo'] === 'video'): ?>
+                            <video controls class="post-video">
+                                <source src="data:video/mp4;base64,<?= base64_encode($post['MultImagen']) ?>">
+                                Tu navegador no soporta la etiqueta de video.
+                            </video>
+                        <?php else: ?>
+                            <img src="data:image/jpeg;base64,<?= base64_encode($post['MultImagen']) ?>" alt="Imagen del post" class="post-image">
+                        <?php endif; ?>
                     </div>
                 <?php endif; ?>
 
@@ -130,7 +129,6 @@
 
     <script src="js/dashboard.js"></script>
 
-    <!-- FOOTER -->
     <footer class="footer">
         <p>&copy; 2024 CHATTERBOX | Todos los derechos reservados.</p>
     </footer>

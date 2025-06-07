@@ -19,14 +19,38 @@ document.getElementById("overlay").addEventListener("click", function (event) {
     }
 });
 
-// PREVISUALIZACION DE IMAGEN
+// --- MODIFICADO --- Lógica de previsualización para soportar imágenes y videos
 document.getElementById("post-image-upload").addEventListener("change", function (event) {
     const file = event.target.files[0];
+    const previewContainer = document.querySelector(".image-preview-container");
+
+    // Limpiar cualquier previsualización anterior
+    previewContainer.innerHTML = '';
+
     if (file) {
         const reader = new FileReader();
         reader.onload = function (e) {
-            document.getElementById("post-preview").src = e.target.result;
-            document.getElementById("post-preview").style.display = "block";
+            let previewElement;
+
+            // Crear un elemento <img> si es una imagen
+            if (file.type.startsWith("image/")) {
+                previewElement = document.createElement("img");
+                previewElement.style.objectFit = "contain";
+            }
+            // Crear un elemento <video> si es un video
+            else if (file.type.startsWith("video/")) {
+                previewElement = document.createElement("video");
+                previewElement.controls = true; // Mostrar controles
+                previewElement.style.objectFit = "contain";
+            }
+
+            // Si se creó un elemento, añadirlo al contenedor de preview
+            if (previewElement) {
+                previewElement.src = e.target.result;
+                previewElement.style.width = '100%';
+                previewElement.style.height = '100%';
+                previewContainer.appendChild(previewElement);
+            }
         };
         reader.readAsDataURL(file);
     }

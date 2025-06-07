@@ -414,10 +414,11 @@ body {
     width: 100%;
 }
 
-.post-image {
+.post-image, .post-video {
     width: 100%;
     height: auto;
     display: block;
+    background-color: #000; /* Añadido para un fondo consistente en videos */
 }
 
 .post-footer {
