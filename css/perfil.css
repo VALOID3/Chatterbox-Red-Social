@@ -405,7 +405,7 @@ body {
     padding: 40px; 
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    
 }
   
 .post-owner {
@@ -431,6 +431,7 @@ body {
     font-size: 18px; 
     color: var(--secondary-color);
     margin: 20px 0;
+    
 }
   
 .Full-buttons {
