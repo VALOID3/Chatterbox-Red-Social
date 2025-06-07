@@ -1,27 +1,4 @@
-<?php 
-require_once '../conexion.php';
-require_once '../Midware/auth_admin.php';
-
-$sql = "
-    SELECT p.id_Publi, u.nom_usuario, p.contenido, p.fecha,
-           (SELECT COUNT(*) FROM likes l WHERE l.publicacion_id = p.id_Publi) AS total_likes
-    FROM Publicacion p
-    INNER JOIN Usuarios u ON p.usuario_id = u.id_Usuario
-    ORDER BY p.id_Publi DESC
-";
-
-$resultado = $conn->query($sql);
-$publicaciones = [];
-$totalPosts = 0;
-
-if ($resultado && $resultado->num_rows > 0) {
-    while ($row = $resultado->fetch_assoc()) {
-        $publicaciones[] = $row;
-    }
-    $totalPosts = count($publicaciones);
-}
-
-?>
+<?php require_once '../Midware/auth_admin.php'; ?>
 
 
 
@@ -60,15 +37,13 @@ if ($resultado && $resultado->num_rows > 0) {
                 </button>
             </div>
             <div class="report-button">
-                <form action="generar_reporte_posts.php" method="post">
-                    <button type="submit" class="btn-report">
-                         Generar Reporte de Publicaciones
-                    </button>
-                </form>
+                <button class="btn-report">
+                    <i class="bi bi-flag-fill"></i> Generar Reporte
+                </button>
             </div>
-
-            <h2>Lista de Publicaciones</h2>
-            <div class="user-count">Total de publicaciones: <strong><?= $totalPosts ?></strong></div>
+            <div class="post-count">
+                <span>Total de publicaciones: <strong>1</strong></span>
+            </div>
         </div>
 
         <!-- LISTA DE POSTS -->
@@ -76,25 +51,38 @@ if ($resultado && $resultado->num_rows > 0) {
             <table>
                 <thead>
                     <tr>
-                        <th>ID</th>  
-                        <th>Usuario</th>
-                        <th>Contenido</th>
-                        <th>Fecha</th>   
+                        <th>ID</th>
+                        <th>IDM</th>
+                        <th>Propietario</th>
+                        <th>Descripción</th>
                         <th>Likes</th>
+                        <th>Tag</th>
+                        <th>Fecha de Creación</th>
                         <th>Estado</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                <?php foreach ($publicaciones as $post): ?>
+                    <!-- Ejemplo de fila de post -->
                     <tr>
-                        <td><?= $post['id_Publi'] ?></td>
-                        <td><?= htmlspecialchars($post['nom_usuario']) ?></td>
-                        <td><?= htmlspecialchars($post['contenido']) ?></td>
-                        <td><?= $post['fecha'] ?></td>
-                        <td><?= $post['total_likes'] ?></td>
-                        <td><span class="status active">Publicado</span></td>
+                        <td>1</td>
+                        <td>09213</td>
+                        <td>Pedro Pascal</td>
+                        <td>    Albion Online es un MMORPG no lineal en el que escribes tu propia historia sin
+                            limitarte a seguir un camino prefijado. Explora un amplio mundo abierto con cinco biomas únicos.
+                            Todo cuanto
+                            hagas tendrá repercusión en el mundo.</td>
+                        <td>10</td>
+                        <td>Videojuegos</td>
+                        <td>07/03/2025</td>
+                        <td><span class="status active">Activo</span></td>
+                        <td>
+                            <button class="btn-toggle-status">
+                                Desactivar
+                            </button>
+                        </td>
                     </tr>
-                <?php endforeach; ?>
+                    <!-- Más filas de posts pueden agregarse aquí -->
                 </tbody>
             </table>
         </div>

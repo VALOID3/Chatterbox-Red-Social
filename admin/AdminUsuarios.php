@@ -1,6 +1,12 @@
 <?php
+session_start();
 require_once '../conexion.php';
-require_once '../Midware/auth_admin.php'; 
+
+// Solo permitir acceso a administradores
+if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_rol'] !== 'Administrador') {
+    header("Location: ../login.php");
+    exit();
+}
 
 // Consulta usuarios con cantidad de publicaciones
 $sql = "
@@ -97,13 +103,6 @@ $conn->close();
             </table>
         </div>
     </div>
-
-
-     <!-- FOOTER -->
-     <footer class="footer">
-        <p>&copy; 2024 CHATTERBOX | Todos los derechos reservados.</p>
-    </footer>
-    <link rel="stylesheet" href="../css/footer.css">
 
 </body>
 
