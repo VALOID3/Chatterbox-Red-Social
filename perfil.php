@@ -22,11 +22,11 @@ if (!$usuario) {
     exit;
 }
 
-// Consulta para obtener las publicaciones del usuario
-$sql_publicaciones = "SELECT p.id_Publi, p.contenido, m.MultImagen, p.fecha 
+// --- MODIFICADO --- Se añade m.tipo a la consulta para diferenciar entre imagen y video.
+$sql_publicaciones = "SELECT p.id_Publi, p.contenido, m.MultImagen, m.tipo, p.fecha 
                       FROM Publicacion p
-                      JOIN Multimedia m ON p.id_Publi = m.publicacion_id
-                      WHERE p.usuario_id = ?
+                      LEFT JOIN Multimedia m ON p.id_Publi = m.publicacion_id
+                      WHERE p.usuario_id = ? AND m.id_Multi IS NOT NULL
                       ORDER BY p.fecha DESC";
 $stmt_publicaciones = $conn->prepare($sql_publicaciones);
 $stmt_publicaciones->bind_param("i", $usuario_id_perfil);
@@ -144,8 +144,18 @@ $publicaciones = $resultado_publicaciones->fetch_all(MYSQLI_ASSOC);
              data-post-id="<?= $publicacion['id_Publi'] ?>"
              data-post-content="<?= htmlspecialchars($publicacion['contenido']) ?>"
              data-owner-name="<?= htmlspecialchars($usuario['nombre']) ?>"
-             data-owner-pic="<?= !empty($usuario['imagen_perfil']) ? 'data:image/jpeg;base64,'.base64_encode($usuario['imagen_perfil']) : 'images/PorfileP.png' ?>">
-          <img src="data:image/jpeg;base64,<?= base64_encode($publicacion['MultImagen']) ?>" class="post-image">
+             data-owner-pic="<?= !empty($usuario['imagen_perfil']) ? 'data:image/jpeg;base64,'.base64_encode($usuario['imagen_perfil']) : 'images/PorfileP.png' ?>"
+             data-media-type="<?= $publicacion['tipo'] ?>"
+             data-media-base64="<?= base64_encode($publicacion['MultImagen']) ?>">
+          
+          <?php if ($publicacion['tipo'] === 'video'): ?>
+            <video class="post-video" muted>
+                <source src="data:video/mp4;base64,<?= base64_encode($publicacion['MultImagen']) ?>">
+            </video>
+          <?php else: ?>
+            <img src="data:image/jpeg;base64,<?= base64_encode($publicacion['MultImagen']) ?>" class="post-image">
+          <?php endif; ?>
+
         </div>
       <?php endforeach; ?>
     <?php else: ?>
@@ -161,7 +171,6 @@ $publicaciones = $resultado_publicaciones->fetch_all(MYSQLI_ASSOC);
       <div class="Full-grid">
 
         <div class="Full-image">
-          <img id="FullPostImage">
         </div>
         <div class="Full-info">
           <div class="post-owner">
@@ -193,36 +202,26 @@ $publicaciones = $resultado_publicaciones->fetch_all(MYSQLI_ASSOC);
 
   <div id="edit-post-form" class="edit-post-container">
     <div class="edit-post-content">
-
-
       <div class="edit-post-grid">
         <div class="edit-post-image">
           <img id="edit-post-preview" src="">
         </div>
-
         <div class="edit-post-info">
           <div class="input-box-big">
             <label for="edit-post-desc" class="label2">DESCRIPCION</label>
             <textarea class="input-field2" id="edit-post-desc" required></textarea>
           </div>
         </div>
-
         <div class="edit-post-buttons">
-
           <button class="edit-post-delete">
             <i class="bi bi-trash"></i>
           </button>
-
-          </button>
           <button class="edit-post-discard">
             <i class="bi bi-x"></i>
-
-
-            <button class="edit-post-save">
+          </button>
+          <button class="edit-post-save">
               <i class="bi bi-check"></i>
-
-            </button>
-
+          </button>
         </div>
       </div>
     </div>

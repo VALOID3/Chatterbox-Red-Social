@@ -333,6 +333,7 @@ body {
     transition: transform 0.2s ease-in-out;
     position: relative;
     z-index: 1;
+    cursor: pointer; /* --- AÑADIDO --- Para indicar que se puede hacer clic */
 }
 
 .post:hover {
@@ -340,8 +341,8 @@ body {
     box-shadow: 0 0 10px 1px #006987; 
 }
 
-/* IMAGEN DENTRO DE LA PUBLICACIÓN */
-.post-image {
+/* --- MODIFICADO --- Se añade .post-video para que comparta estilos con .post-image */
+.post-image, .post-video {
     width: 100%;
     height: 100%;
     object-fit: cover; 
@@ -395,7 +396,8 @@ body {
     height: 100%; 
 }
   
-.Full-image img {
+/* --- MODIFICADO --- Se añade .Full-image video para que el video en el modal se vea bien */
+.Full-image img, .Full-image video {
     width: 100%;
     height: 100%;
     object-fit: cover;
