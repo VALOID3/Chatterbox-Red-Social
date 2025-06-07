@@ -14,6 +14,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const fullPostDescription = Full.querySelector(".post-description");
     const ownerName = Full.querySelector(".owner-name");
     const ownerPicture = Full.querySelector(".owner-picture");
+    
+    // --- INICIO DE LA MODIFICACIÓN: OBTENER ENLACE DE DESCARGA ---
+    const downloadLink = document.getElementById("download-link");
+    // --- FIN DE LA MODIFICACIÓN ---
   
     let currentPostId = null;
   
@@ -24,10 +28,16 @@ document.addEventListener("DOMContentLoaded", function () {
         const postOwnerName = post.dataset.ownerName;
         const postOwnerPic = post.dataset.ownerPic;
         currentPostId = post.dataset.postId;
+        
         FullImage.src = postImageSrc;
         fullPostDescription.textContent = postContent;
         ownerName.textContent = postOwnerName;
         ownerPicture.src = postOwnerPic;
+        
+        // --- INICIO DE LA MODIFICACIÓN: ASIGNAR URL AL BOTÓN DE DESCARGA ---
+        downloadLink.href = postImageSrc;
+        // --- FIN DE LA MODIFICACIÓN ---
+  
         Full.style.display = "flex";
       });
     });
@@ -105,13 +115,10 @@ document.addEventListener("DOMContentLoaded", function () {
           });
       });
     }
-  
-    // --- INICIO DE LA MODIFICACIÓN: LÓGICA PARA ELIMINAR PUBLICACIÓN ---
+    
     if (deletePostBtn) {
       deletePostBtn.addEventListener("click", () => {
-        // Preguntar al usuario si está seguro
         if (confirm("¿Estás seguro de que quieres eliminar esta publicación? Esta acción no se puede deshacer.")) {
-          
           fetch('php/eliminar_publicacion.php', {
             method: 'POST',
             headers: {
@@ -124,12 +131,10 @@ document.addEventListener("DOMContentLoaded", function () {
           .then(response => response.json())
           .then(data => {
             if (data.success) {
-              // Eliminar el post del HTML sin recargar la página
               const postElement = document.querySelector(`.post[data-post-id='${currentPostId}']`);
               if (postElement) {
                 postElement.remove();
               }
-              // Cerrar el formulario de edición
               editPostForm.style.display = "none";
               alert(data.message);
             } else {
@@ -143,6 +148,5 @@ document.addEventListener("DOMContentLoaded", function () {
         }
       });
     }
-    // --- FIN DE LA MODIFICACIÓN ---
-  
+    
   });

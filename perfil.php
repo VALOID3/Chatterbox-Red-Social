@@ -22,7 +22,6 @@ if (!$usuario) {
     exit;
 }
 
-// --- INICIO DE LA MODIFICACIÓN: CONSULTAR PUBLICACIONES ---
 // Consulta para obtener las publicaciones del usuario
 $sql_publicaciones = "SELECT p.id_Publi, p.contenido, m.MultImagen, p.fecha 
                       FROM Publicacion p
@@ -34,7 +33,6 @@ $stmt_publicaciones->bind_param("i", $usuario_id_perfil);
 $stmt_publicaciones->execute();
 $resultado_publicaciones = $stmt_publicaciones->get_result();
 $publicaciones = $resultado_publicaciones->fetch_all(MYSQLI_ASSOC);
-// --- FIN DE LA MODIFICACIÓN ---
 
 ?>
 
@@ -153,7 +151,8 @@ $publicaciones = $resultado_publicaciones->fetch_all(MYSQLI_ASSOC);
     <?php else: ?>
         <p style="color: white; text-align: center; width: 100%; margin-top: 20px;">Este usuario aún no ha realizado ninguna publicación.</p>
     <?php endif; ?>
-    </div>
+
+  </div>
 
 
   <div id="postFull" class="Full">
@@ -173,12 +172,13 @@ $publicaciones = $resultado_publicaciones->fetch_all(MYSQLI_ASSOC);
 
 
           <div class="Full-buttons">
-            <button class="like-btn">
-              <i class="bi bi-heart"></i>
-            </button>
-            <button class="download-btn">
-              <i class="bi bi-download"></i>
-            </button>
+
+            <a href="#" id="download-link" download="Chatterbox-Post.jpg" style="text-decoration: none;">
+                <button class="download-btn">
+                    <i class="bi bi-download"></i>
+                </button>
+            </a>
+
             <?php if ($usuario_id_perfil == $_SESSION['usuario_id']): ?>
             <button class="edit-post-btn">
               <i class="bi bi-pencil"></i>
@@ -186,7 +186,7 @@ $publicaciones = $resultado_publicaciones->fetch_all(MYSQLI_ASSOC);
             <?php endif; ?>
 
           </div>
-        </div>
+          </div>
       </div>
     </div>
   </div>
