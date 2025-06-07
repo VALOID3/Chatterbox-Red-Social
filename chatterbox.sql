@@ -6,7 +6,8 @@ DELETE FROM Usuarios;
 DROP TABLE IF EXISTS Multimedia;
 
 SELECT * FROM usuarios;
-select * FROM likes;
+select * FROM comentarios;
+
 
 CREATE TABLE Usuarios (
     id_Usuario INT PRIMARY KEY AUTO_INCREMENT,     
