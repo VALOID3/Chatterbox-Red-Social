@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
 
-    
+
     <link rel="stylesheet" href="css/background.css">
     <link rel="stylesheet" href="css/dashboard.css">
 
@@ -45,7 +45,7 @@
 
             <div class="post-inputs">
                 <div class="input-box-big">
-                    <textarea class="input-field" id="post-description"  name="contenido" required></textarea>
+                    <textarea class="input-field" id="post-description" name="contenido" required></textarea>
                     <label for="post-description" class="label">Descripción</label>
                 </div>
 
@@ -77,55 +77,80 @@
 
 
     <main class="post-container">
-    <?php if (!empty($posts)): ?>
-        <?php foreach ($posts as $post): ?>
-            <div class="post-card">
-                <div class="post-header">
-                    <div class="post-author-info">
-                        <?php if (!empty($post['imagen_perfil'])): ?>
-                            <img src="data:image/jpeg;base64,<?= base64_encode($post['imagen_perfil']) ?>" alt="Foto de perfil" class="author-avatar">
-                        <?php else: ?>
-                            <img src="images/PorfileP.png" alt="Foto de perfil" class="author-avatar"> <?php endif; ?>
-                        <span class="author-name"><?= htmlspecialchars($post['nom_usuario']) ?></span>
+        <?php if (!empty($posts)): ?>
+            <?php foreach ($posts as $post): ?>
+                <div class="post-card">
+                    <div class="post-header">
+                        <div class="post-author-info">
+                            <?php if (!empty($post['imagen_perfil'])): ?>
+                                <img src="data:image/jpeg;base64,<?= base64_encode($post['imagen_perfil']) ?>" alt="Foto de perfil" class="author-avatar">
+                            <?php else: ?>
+                                <img src="images/PorfileP.png" alt="Foto de perfil" class="author-avatar"> <?php endif; ?>
+                            <span class="author-name"><?= htmlspecialchars($post['nom_usuario']) ?></span>
+                        </div>
+                        <span class="post-time"><?= date('d M Y, H:i', strtotime($post['fecha'])) ?></span>
                     </div>
-                    <span class="post-time"><?= date('d M Y, H:i', strtotime($post['fecha'])) ?></span>
-                </div>
 
-                <div class="post-body">
-                    <p><?= htmlspecialchars($post['contenido']) ?></p>
-                </div>
-
-                <?php if (!empty($post['MultImagen'])): ?>
-                    <div class="post-image-container">
-                        <?php if ($post['tipo'] === 'video'): ?>
-                            <video controls class="post-video">
-                                <source src="data:video/mp4;base64,<?= base64_encode($post['MultImagen']) ?>">
-                                Tu navegador no soporta la etiqueta de video.
-                            </video>
-                        <?php else: ?>
-                            <img src="data:image/jpeg;base64,<?= base64_encode($post['MultImagen']) ?>" alt="Imagen del post" class="post-image">
-                        <?php endif; ?>
+                    <div class="post-body">
+                        <p><?= htmlspecialchars($post['contenido']) ?></p>
                     </div>
-                <?php endif; ?>
 
-                <div class="post-footer">
-                <?php 
-                        // Determinar la clase del ícono y la clase 'liked'
+                    <?php if (!empty($post['MultImagen'])): ?>
+                        <div class="post-image-container">
+                            <?php if ($post['tipo'] === 'video'): ?>
+                                <video controls class="post-video">
+                                    <source src="data:video/mp4;base64,<?= base64_encode($post['MultImagen']) ?>">
+                                    Tu navegador no soporta la etiqueta de video.
+                                </video>
+                            <?php else: ?>
+                                <img src="data:image/jpeg;base64,<?= base64_encode($post['MultImagen']) ?>" alt="Imagen del post" class="post-image">
+                            <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
+
+                    <div class="post-footer">
+                        <?php
+                        // Lógica para el botón de Like (sin cambios)
                         $likedClass = $post['user_has_liked'] ? 'liked' : '';
                         $iconClass = $post['user_has_liked'] ? 'bi-heart-fill' : 'bi-heart';
-                    ?>
-                    <button class="footer-btn like-btn <?= $likedClass ?>" data-post-id="<?= $post['id_Publi'] ?>">
-                        <i class="bi <?= $iconClass ?>"></i> 
-                        <span class="like-count"><?= $post['total_likes'] ?></span>
-                    </button>
-                    <button class="footer-btn"><i class="bi bi-chat-dots"></i> Comentar</button>
+                        ?>
+                        <button class="footer-btn like-btn <?= $likedClass ?>" data-post-id="<?= $post['id_Publi'] ?>">
+                            <i class="bi <?= $iconClass ?>"></i>
+                            <span class="like-count"><?= $post['total_likes'] ?></span>
+                        </button>
+
+                        <?php
+                        // --- INICIO DE LA NUEVA LÓGICA PARA DESCARGAR ---
+                        // Comprobar si hay contenido multimedia para descargar
+                        if (!empty($post['MultImagen'])):
+                            $dataSrc = '';
+                            $downloadFilename = '';
+
+                            // Preparar el enlace de datos y el nombre del archivo según el tipo
+                            if ($post['tipo'] === 'video') {
+                                $dataSrc = 'data:video/mp4;base64,' . base64_encode($post['MultImagen']);
+                                $downloadFilename = 'Chatterbox-Post.mp4';
+                            } else {
+                                $dataSrc = 'data:image/jpeg;base64,' . base64_encode($post['MultImagen']);
+                                $downloadFilename = 'Chatterbox-Post.jpg';
+                            }
+                        ?>
+                            <a href="<?= htmlspecialchars($dataSrc) ?>" download="<?= htmlspecialchars($downloadFilename) ?>" class="footer-btn">
+                                <i class="bi bi-download"></i> Descargar
+                            </a>
+                        <?php
+                        endif;
+                        // --- FIN DE LA NUEVA LÓGICA PARA DESCARGAR ---
+                        ?>
+
+                        <button class="footer-btn"><i class="bi bi-chat-dots"></i> Comentar</button>
+                    </div>
                 </div>
-            </div>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <p class="text-center">No hay publicaciones para mostrar. ¡Sé el primero en publicar!</p>
-    <?php endif; ?>
-</main>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p class="text-center">No hay publicaciones para mostrar. ¡Sé el primero en publicar!</p>
+        <?php endif; ?>
+    </main>
 
     <script src="js/dashboard.js"></script>
 
