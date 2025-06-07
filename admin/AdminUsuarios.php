@@ -51,12 +51,6 @@ $conn->close();
 
     <div class="admin-container">
         <div class="admin-header">
-            <div class="search-bar">
-                <input type="text" class="search-input">
-                <button class="search-button">
-                    <i class="bi bi-search"></i>
-                </button>
-            </div>
             <div class="report-button">
                 <form action="generar_reporte_usuarios.php" method="post">
                     <button type="submit" class="btn-report">
