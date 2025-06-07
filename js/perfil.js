@@ -10,83 +10,113 @@ document.addEventListener("DOMContentLoaded", function () {
     const saveChangesBtn = document.querySelector(".edit-post-save");
     const deletePostBtn = document.querySelector(".edit-post-delete");
     const discardChangesBtn = document.querySelector(".edit-post-discard");
-    
-    // --- INICIO DE LA MODIFICACIÓN: MANEJAR POSTS DINÁMICOS ---
-    // Seleccionar elementos de la vista completa para llenarlos dinámicamente
+  
     const fullPostDescription = Full.querySelector(".post-description");
     const ownerName = Full.querySelector(".owner-name");
     const ownerPicture = Full.querySelector(".owner-picture");
   
-    // ABRE EL POST FULL
+    // Variable para guardar el ID del post que se está editando
+    let currentPostId = null;
+  
     document.querySelectorAll(".post").forEach((post) => {
         post.addEventListener("click", () => {
-            // Obtener datos del post desde los atributos data-*
             const postImageSrc = post.querySelector(".post-image").src;
             const postContent = post.dataset.postContent;
             const postOwnerName = post.dataset.ownerName;
             const postOwnerPic = post.dataset.ownerPic;
   
-            // Llenar el modal con la información del post
+            // --- INICIO DE LA MODIFICACIÓN: GUARDAR ID DEL POST ---
+            currentPostId = post.dataset.postId; // Guardamos el ID del post al abrir el modal
+            // --- FIN DE LA MODIFICACIÓN ---
+  
             FullImage.src = postImageSrc;
             fullPostDescription.textContent = postContent;
             ownerName.textContent = postOwnerName;
             ownerPicture.src = postOwnerPic;
-  
-            // Mostrar el modal
+            
             Full.style.display = "flex";
         });
     });
-    // --- FIN DE LA MODIFICACIÓN ---
   
-    // CIERRA EL POST FULL
     if (closeFull) {
         closeFull.addEventListener("click", () => {
             Full.style.display = "none";
         });
     }
   
-    // CIERRA EL POST FULL al hacer clic fuera del contenedor
     window.addEventListener("click", (event) => {
         if (event.target === Full) {
             Full.style.display = "none";
         }
     });
   
-    // ABRE EL CONTENEDOR DE EDICIÓN Y CIERRA POST FULL
     document.querySelectorAll(".edit-post-btn").forEach((button) => {
         button.addEventListener("click", () => {
             const postImage = document.getElementById("FullPostImage").src;
-  
             editPostPreview.src = postImage;
-            // Asignar descripción actual al textarea de edición
             editPostDescription.value = fullPostDescription.textContent;
-  
-            // CIERRA EL POST
             Full.style.display = "none";
-  
-            //MUESTRA EL CONTENEDOR
             editPostForm.style.display = "flex";
         });
     });
   
-    // CIERRA EL CONTENEDOR DE EDICIÓN
     if (closeEdit) {
         closeEdit.addEventListener("click", () => {
             editPostForm.style.display = "none";
         });
     }
-  
-    // CIERRA EL CONTENEDOR DE EDICIÓN AL HACER CLIC FUERA
+    
     window.addEventListener("click", (event) => {
         if (event.target === editPostForm) {
             editPostForm.style.display = "none";
         }
     });
   
-    // DESCARTAR CAMBIOS
     if (discardChangesBtn) {
         discardChangesBtn.addEventListener("click", () => {
             editPostForm.style.display = "none";
         });
     }
+    
+    // --- INICIO DE LA MODIFICACIÓN: LÓGICA PARA GUARDAR CAMBIOS ---
+    if (saveChangesBtn) {
+      saveChangesBtn.addEventListener("click", () => {
+          const nuevaDescripcion = editPostDescription.value;
+  
+          // Enviamos los datos al servidor con fetch
+          fetch('php/actualizar_publicacion.php', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                  post_id: currentPostId,
+                  descripcion: nuevaDescripcion
+              })
+          })
+          .then(response => response.json())
+          .then(data => {
+              if (data.success) {
+                  // Actualizar la descripción en el HTML sin recargar
+                  const postElement = document.querySelector(`.post[data-post-id='${currentPostId}']`);
+                  if (postElement) {
+                      postElement.dataset.postContent = nuevaDescripcion;
+                  }
+                  fullPostDescription.textContent = nuevaDescripcion;
+  
+                  // Cerrar el formulario de edición
+                  editPostForm.style.display = "none";
+                  alert("¡Publicación actualizada con éxito!");
+              } else {
+                  alert("Error: " + data.message);
+              }
+          })
+          .catch(error => {
+              console.error('Error en la solicitud:', error);
+              alert("Ocurrió un error al conectar con el servidor.");
+          });
+      });
+    }
+    // --- FIN DE LA MODIFICACIÓN ---
+  
   });
