@@ -199,7 +199,7 @@ body {
 .create-post-container {
     display: none;
     position: absolute;
-    top: 200%;
+    top: 250%;
     left: 50%;
     transform: translate(-50%, -50%);
     width: 1000px; 
