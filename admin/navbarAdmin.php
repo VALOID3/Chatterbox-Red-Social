@@ -69,13 +69,6 @@ $usuario = $_SESSION['usuario_nombre'] ?? 'Invitado';
                         <div class="text">POSTS</div>
                     </button>
 
-                    <button class="Btn" onclick="window.top.location.href='AdminTags.php'">
-                        <div class="sign">
-                            <i class="bi bi-tags-fill icon-large"></i>
-                        </div>
-                        <div class="text">TAGS</div>
-                    </button>
-
                     <div class="usuario-nombre">
                         Bienvenido, <strong><?= htmlspecialchars($usuario) ?></strong>
                     </div>

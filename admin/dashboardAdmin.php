@@ -34,10 +34,6 @@
             <i class="bi bi-file-earmark-post"></i>
             <span>Administrar Posts</span>
         </a>
-        <a href="AdminTags.php" class="dashboard-button">
-            <i class="bi bi-tags-fill"></i>
-            <span>Administrar Tags</span>
-        </a>
     </div>
 
     <script src="js/dashboard.js"></script>
