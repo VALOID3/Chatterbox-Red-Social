@@ -58,9 +58,11 @@ $conn->close();
     <div class="admin-container">
         <div class="admin-header">
             <div class="report-button">
-                <button class="btn-report">
-                    <i class="bi bi-flag-fill"></i> Generar Reporte
-                </button>
+                <form action="generar_reporte_posts.php" method="post">
+                    <button type="submit" class="btn-report">
+                        <i class="bi bi-flag-fill"></i> Generar Reporte
+                    </button>
+                </form>
             </div>
             <div class="post-count">
                 <span>Total de publicaciones: <strong><?= $totalPublicaciones ?></strong></span>
