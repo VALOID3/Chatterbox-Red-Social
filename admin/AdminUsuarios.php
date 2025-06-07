@@ -1,12 +1,6 @@
 <?php
-session_start();
 require_once '../conexion.php';
-
-// Solo permitir acceso a administradores
-if (!isset($_SESSION['usuario_id']) || $_SESSION['usuario_rol'] !== 'Administrador') {
-    header("Location: ../login.php");
-    exit();
-}
+require_once '../Midware/auth_admin.php'; 
 
 // Consulta usuarios con cantidad de publicaciones
 $sql = "
