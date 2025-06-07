@@ -143,7 +143,7 @@
                         // --- FIN DE LA NUEVA LÓGICA PARA DESCARGAR ---
                         ?>
 
-                        <button class="footer-btn"><i class="bi bi-chat-dots"></i> Comentar</button>
+                        
                     </div>
                 </div>
             <?php endforeach; ?>
