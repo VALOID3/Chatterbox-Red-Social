@@ -1,5 +1,5 @@
 <?php
-require_once './Midware/auth_usuario.php'; 
+require_once './Midware/auth_usuario.php';
 
 require_once 'conexion.php';
 
@@ -21,6 +21,21 @@ if (!$usuario) {
     header("Location: busqueda.php");
     exit;
 }
+
+// --- INICIO DE LA MODIFICACIÓN: CONSULTAR PUBLICACIONES ---
+// Consulta para obtener las publicaciones del usuario
+$sql_publicaciones = "SELECT p.id_Publi, p.contenido, m.MultImagen, p.fecha 
+                      FROM Publicacion p
+                      JOIN Multimedia m ON p.id_Publi = m.publicacion_id
+                      WHERE p.usuario_id = ?
+                      ORDER BY p.fecha DESC";
+$stmt_publicaciones = $conn->prepare($sql_publicaciones);
+$stmt_publicaciones->bind_param("i", $usuario_id_perfil);
+$stmt_publicaciones->execute();
+$resultado_publicaciones = $stmt_publicaciones->get_result();
+$publicaciones = $resultado_publicaciones->fetch_all(MYSQLI_ASSOC);
+// --- FIN DE LA MODIFICACIÓN ---
+
 ?>
 
 <!DOCTYPE html>
@@ -34,9 +49,7 @@ if (!$usuario) {
   <link rel="stylesheet" href="css/background.css">
   <link rel="stylesheet" href="css/perfil.css">
 
-  <!-- ES PARA LOS BOTONES -->
   <link rel="stylesheet" href="css/iconsreverse.css">
-  <!-- BOOTSTRAMP ICONS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
   <link rel="icon" type="image/png" href="images/CHATTERBOX.png">
@@ -56,7 +69,6 @@ if (!$usuario) {
       </div>
     </div>
 
-    <!-- IMAGEN DE FONDO -->
     <div class="background-picture-container">
         <?php if (!empty($usuario['img_PerfilFond'])): ?>
             <img src="data:image/jpeg;base64,<?= base64_encode($usuario['img_PerfilFond']) ?>" class="background-picture">
@@ -65,7 +77,6 @@ if (!$usuario) {
         <?php endif; ?>
     </div>
 
-    <!-- IMAGEN DE PERFIL -->
     <div class="profile-picture-container">
         <?php if (!empty($usuario['imagen_perfil'])): ?>
             <img src="data:image/jpeg;base64,<?= base64_encode($usuario['imagen_perfil']) ?>" class="profile-picture">
@@ -76,7 +87,6 @@ if (!$usuario) {
 
 
 
-    <!-- INFORMACIÓN DEL PERFIL -->
     <div class="profile-info">
       <h2 class="profile-username"><?php echo htmlspecialchars($usuario['nombre']); ?></h2>
       <p class="profile-fullname">@<?php echo htmlspecialchars($usuario['nom_usuario']); ?></p>
@@ -98,10 +108,8 @@ if (!$usuario) {
     <br>
 
     <p class="profile-description"></p>
-    <!-- BOTONES -->
     <div class="container-navbuttons">
       <?php if ($usuario_id_perfil == $_SESSION['usuario_id']): ?>
-        <!-- BOTONES PARA EL USUARIO LOGEADO (SU PROPIO PERFIL) -->
         <button class="Btn" onclick="location.href='EditarP.php'">
           <div class="sign">
             <i class="bi bi-pencil-fill"></i>
@@ -116,7 +124,6 @@ if (!$usuario) {
           <div class="text">CERRAR SESION</div>
         </button>
       <?php else: ?>
-        <!-- BOTÓN PARA PERFILES DE OTROS USUARIOS -->
         <button class="Btn" onclick="location.href='chat.php?user_id=<?php echo $usuario_id_perfil; ?>'">
           <div class="sign">
             <i class="bi bi-chat-dots-fill"></i>
@@ -131,36 +138,24 @@ if (!$usuario) {
 
   <br>
 
-  <!-- SECCIÓN DE PUBLICACIONES -->
   <div class="post-container">
-
-    <div class="post">
-      <img src="images/PUBLICACION.png" class="post-image">
+    
+    <?php if (!empty($publicaciones)): ?>
+      <?php foreach ($publicaciones as $publicacion): ?>
+        <div class="post" 
+             data-post-id="<?= $publicacion['id_Publi'] ?>"
+             data-post-content="<?= htmlspecialchars($publicacion['contenido']) ?>"
+             data-owner-name="<?= htmlspecialchars($usuario['nombre']) ?>"
+             data-owner-pic="<?= !empty($usuario['imagen_perfil']) ? 'data:image/jpeg;base64,'.base64_encode($usuario['imagen_perfil']) : 'images/PorfileP.png' ?>">
+          <img src="data:image/jpeg;base64,<?= base64_encode($publicacion['MultImagen']) ?>" class="post-image">
+        </div>
+      <?php endforeach; ?>
+    <?php else: ?>
+        <p style="color: white; text-align: center; width: 100%; margin-top: 20px;">Este usuario aún no ha realizado ninguna publicación.</p>
+    <?php endif; ?>
     </div>
 
-    <div class="post">
-      <img src="images/PUBLICACION.png" class="post-image">
-    </div>
 
-    <div class="post">
-      <img src="images/PUBLICACION.png" class="post-image">
-    </div>
-
-    <div class="post">
-      <img src="images/PUBLICACION.png" class="post-image">
-    </div>
-
-    <div class="post">
-      <img src="images/PUBLICACION.png" class="post-image">
-    </div>
-
-    <div class="post">
-      <img src="images/PUBLICACION.png" class="post-image">
-    </div>
-  </div>
-
-
-  <!-- FULL POST -->
   <div id="postFull" class="Full">
     <div class="Full-content">
       <span class="close-Full">&times;</span>
@@ -169,18 +164,13 @@ if (!$usuario) {
         <div class="Full-image">
           <img id="FullPostImage">
         </div>
-        <!-- INFO DEL POST -->
         <div class="Full-info">
           <div class="post-owner">
             <img src="images/PorfileP.png" class="owner-picture">
-            <span class="owner-name">Pedro Pascal</span>
+            <span class="owner-name"></span>
           </div>
-          <p class="post-description">Albion Online es un MMORPG no lineal en el que escribes tu propia historia sin
-            limitarte a seguir un camino prefijado. Explora un amplio mundo abierto con cinco biomas únicos. Todo cuanto
-            hagas tendrá repercusión en el mundo.</p>
+          <p class="post-description"></p>
 
-
-          <!-- BOTON DE LIKE Y DESCARGA -->
 
           <div class="Full-buttons">
             <button class="like-btn">
@@ -189,9 +179,11 @@ if (!$usuario) {
             <button class="download-btn">
               <i class="bi bi-download"></i>
             </button>
+            <?php if ($usuario_id_perfil == $_SESSION['usuario_id']): ?>
             <button class="edit-post-btn">
               <i class="bi bi-pencil"></i>
             </button>
+            <?php endif; ?>
 
           </div>
         </div>
@@ -199,18 +191,15 @@ if (!$usuario) {
     </div>
   </div>
 
-  <!-- CONTENEDOR PARA EDITAR PUBLICACIÓN -->
   <div id="edit-post-form" class="edit-post-container">
     <div class="edit-post-content">
 
 
       <div class="edit-post-grid">
-        <!-- IMAGEN -->
         <div class="edit-post-image">
           <img id="edit-post-preview" src="">
         </div>
 
-        <!-- INFO -->
         <div class="edit-post-info">
           <div class="input-box-big">
             <label for="edit-post-desc" class="label2">DESCRIPCION</label>
@@ -218,7 +207,6 @@ if (!$usuario) {
           </div>
         </div>
 
-        <!-- BOTONES -->
         <div class="edit-post-buttons">
 
           <button class="edit-post-delete">
@@ -249,12 +237,8 @@ if (!$usuario) {
     }
   </script>
 
-
-
-
   <script src="js/perfil.js"></script>
 
-  <!-- FOOTER -->
   <footer class="footer">
     <p>&copy; 2024 CHATTERBOX | Todos los derechos reservados.</p>
   </footer>
