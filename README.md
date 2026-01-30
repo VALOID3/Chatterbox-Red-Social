@@ -37,11 +37,20 @@ Una plataforma de red social funcional desarrollada como proyecto académico par
 - **Frontend:** HTML5, CSS3, JavaScript (Vanilla).
 - **Backend:** PHP (Nativo).
 - **Base de Datos:** MySQL (Relacional).
-- **Herramientas:** Git, GitHub, MySQL Workbench / phpMyAdmin.
+- **Herramientas:** Git, GitHub, MySQL Workbench
 
-## 🔧 Instalación y Despliegue
+## 📷 Capturas de Pantalla
+### Login y Registro
+![Login](./IMG_Interface/Login.png)
+![Registro](./IMG_Interface/registro.png)
 
-Sigue estos pasos para correr el proyecto localmente:
+### Pagina principal posts
+![Principal](./IMG_Interface/Login.png)
+
+### Perfil
+![Interfaz del usuario](./IMG_Interface/perfil.png)
+
+
 
 
 
