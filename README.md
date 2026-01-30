@@ -59,7 +59,7 @@ Una plataforma de red social funcional desarrollada como proyecto académico par
 ![Buscar usuarios](./IMG_Interface/BuscarUser.png)
 
 ### Administrador
-![genera los reportes de los Post y Usuarios](.IMG_Interface/Grabación-de-pantalla-2026-01-30-145328.gif)
+![genera los reportes de los Post y Usuarios](./IMG_Interface/Grabación-de-pantalla-2026-01-30-145328.gif)
 
 
 
