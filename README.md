@@ -49,6 +49,8 @@ Una plataforma de red social funcional desarrollada como proyecto académico par
 
 ### Perfil
 ![Interfaz del usuario](./IMG_Interface/perfil.png)
+![Dmostracion de perfil y descarga](./IMG_Interface/Grabación-de-pantalla-2026-01-29-212528.gif)
+
 
 
 
