@@ -45,11 +45,19 @@ Una plataforma de red social funcional desarrollada como proyecto académico par
 ![Registro](./IMG_Interface/registro.png)
 
 ### Pagina principal posts
-![Principal](./IMG_Interface/Login.png)
+![Principal](./IMG_Interface/Posts.png)
+![Como crear un post](./IMG_Interface/Crear_Post.png)
 
 ### Perfil
 ![Interfaz del usuario](./IMG_Interface/perfil.png)
 ![Dmostracion de perfil y descarga](./IMG_Interface/Grabación-de-pantalla-2026-01-29-212528.gif)
+![Demostracion de Actualizacion](./IMG_Interface/Grabación-de-pantalla-2026-01-29-212929.gif)
+![Púedes editar,borrar](./IMG_Interface/Grabación-de-pantalla-2026-01-29-213045.gif)
+
+### chat 1 a 1
+![chat](./IMG_Interface/Grabación-de-pantalla-2026-01-29-212647.gif)
+![Buscar usuarios](./IMG_Interface/BuscarUser.png)
+
 
 
 
