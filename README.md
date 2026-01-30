@@ -41,7 +41,7 @@ Una plataforma de red social funcional desarrollada como proyecto académico par
 
 ## 📷 Capturas de Pantalla
 ### Login y Registro
-![Texto alternativo](./IMG_Interfasce/Login.png)
+![Login](./IMG_Interface/Login.png)
 
 
 
