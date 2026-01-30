@@ -201,7 +201,7 @@ body {
   border: 1px solid var(--input-border-color);
   border-radius: 5px;
   background-color: var(--background-color);
-  color: var(--white-color);
+  color: var(--black-color);
 }
 
 .chat-input .btn {
