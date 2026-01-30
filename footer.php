@@ -8,7 +8,7 @@
 </head>
 <body>
     <footer class="footer">
-        <p>&copy; 2024 CHATTERBOX | Todos los derechos reservados.</p>
+        <p>&copy; 2025 CHATTERBOX | Todos los derechos reservados.</p>
     </footer>
     
 </body>
