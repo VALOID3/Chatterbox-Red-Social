@@ -42,6 +42,13 @@ Una plataforma de red social funcional desarrollada como proyecto académico par
 ## 📷 Capturas de Pantalla
 ### Login y Registro
 ![Login](./IMG_Interface/Login.png)
+![Registro](./IMG_Interface/registro.png)
+
+### Pagina principal posts
+![Principal](./IMG_Interface/Login.png)
+
+### Perfil
+![Interfaz del usuario](./IMG_Interface/perfil.png)
 
 
 
