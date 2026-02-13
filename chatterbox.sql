@@ -23,8 +23,6 @@ CREATE TABLE Usuarios (
 	descripcion TEXT NULL
 );
 
-insert into usuarios(id_Usuario, nombre, nom_usuario, correo, contrasena, fecha_nacimiento, imagen_perfil, img_PerfilFond, genero, rol, descripcion, nota, nota_timestamp) values(2, "Alfredo Hernandez", "Alfred", "Alfred@hotmail.com", "199-10-03", null, null, "Masculino", "Administrador", Null, null, null);
-
 CREATE TABLE PreferenciasUsuario (
     id INT PRIMARY KEY AUTO_INCREMENT,
     usuario_id INT NOT NULL,
@@ -90,20 +88,6 @@ ALTER TABLE Usuarios
 ADD COLUMN nota VARCHAR(60) NULL DEFAULT NULL,
 ADD COLUMN nota_timestamp TIMESTAMP NULL DEFAULT NULL;
 
-select * from usuarios;
-delete  from usuarios
-where id_Usuario = 3;
-alter table usuarios auto_increment = 0;
-TRUNCATE TABLE usuarios;
-TRUNCATE TABLE publicacion;
-TRUNCATE TABLE comentarios;
-TRUNCATE TABLE likes;
-TRUNCATE TABLE mensajes;
-TRUNCATE TABLE multimedia;
-TRUNCATE TABLE PreferenciasUsuario;
-TRUNCATE TABLE reportes;
 
-INSERT INTO Usuarios (nombre, nom_usuario, correo, contrasena, fecha_nacimiento, genero, rol, descripcion)
-VALUES ("Alfredo Hernandez", "Alfred", "alfred@example.com", "$2y$10$EjemploDeHashGenerado...", "1990-05-10", "Masculino", "Administrador", "Usuario administrador de prueba");
 
 
